@@ -1,0 +1,1518 @@
+/* ==========================================================================
+   EASY TRAV — HOMEPAGE SECTIONS
+   Continues the token system in globals.css. Nothing here introduces a colour,
+   font or radius that is not already a token.
+   ========================================================================== */
+
+.section {
+  position: relative;
+  padding-block: clamp(56px, 6.2vw, 116px);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(24px, 2.8vw, 44px);
+}
+
+.section-head__title {
+  margin-top: 6px;
+  font-size: clamp(28px, 3.1vw, 46px);
+  color: var(--text-primary);
+}
+
+.section-head__lede {
+  margin-top: clamp(10px, 1vw, 15px);
+  color: var(--text-secondary);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.section-head__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  padding-bottom: 6px;
+  color: var(--gold-primary);
+  font-size: clamp(9.5px, 0.72vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease-lux);
+}
+
+.section-head__link:hover {
+  color: var(--gold-mid);
+}
+
+.section-head__link:hover .btn__arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   BOOKING SECTION + APP GREETING
+   ========================================================================== */
+
+.booking-section {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--booking-overlap) * -1);
+}
+
+/* Phone only — the app home greets before it searches. */
+.greeting {
+  display: none;
+}
+
+/* ==========================================================================
+   EXCLUSIVE OFFERS
+   ========================================================================== */
+
+.offers {
+  padding-top: clamp(10px, 1.4vw, 22px);
+}
+
+.offers__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: clamp(22px, 2.6vw, 40px);
+  border-top: var(--border-width) solid var(--border-divider);
+  margin-bottom: clamp(20px, 2.2vw, 34px);
+}
+
+.offers__title {
+  font-size: clamp(24px, 2.5vw, 36px);
+  color: var(--text-primary);
+}
+
+.offers__rail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.5vw, 24px);
+}
+
+.offer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: clamp(14px, 1.2vw, 20px);
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-card);
+  transition: border-color var(--dur-hover) var(--ease-lux);
+}
+
+.offer__media {
+  position: absolute;
+  inset: 0;
+}
+
+.offer__media img {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.offer__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    180deg,
+    rgba(11, 11, 12, 0.06) 0%,
+    rgba(11, 11, 12, 0.42) 44%,
+    rgba(11, 11, 12, 0.94) 100%
+  );
+}
+
+.offer__body {
+  position: relative;
+  padding: 0 clamp(16px, 1.4vw, 24px);
+}
+
+.offer__eyebrow {
+  display: block;
+  color: var(--gold-primary);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.offer__name {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-primary);
+  font-size: clamp(19px, 1.6vw, 25px);
+  line-height: 1.15;
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.offer__meta,
+.guide__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 300;
+}
+
+.offer__dot,
+.guide__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--gold-primary);
+}
+
+.offer__foot {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: clamp(10px, 0.9vw, 14px) clamp(16px, 1.4vw, 24px) 0;
+  padding-top: clamp(10px, 0.9vw, 14px);
+  border-top: var(--border-width) solid var(--border-divider);
+}
+
+.offer__arrow {
+  color: var(--gold-primary);
+  transition: transform var(--dur-hover) var(--ease-lux);
+}
+
+.offer:hover {
+  border-color: var(--border-gold-hover);
+}
+
+.offer:hover .offer__media img {
+  transform: scale(1.04);
+}
+
+.offer:hover .offer__name {
+  transform: translateX(3px);
+}
+
+.offer:hover .offer__arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   DESTINATION CUBES — the image is the card
+   ========================================================================== */
+
+.cube {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: clamp(12px, 1.1vw, 16px);
+  transition: border-color var(--dur-hover) var(--ease-lux);
+}
+
+.cube__media {
+  position: absolute;
+  inset: 0;
+}
+
+.cube__media img {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.cube__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    180deg,
+    transparent 20%,
+    rgba(11, 11, 12, 0.5) 48%,
+    rgba(11, 11, 12, 0.94) 100%
+  );
+}
+
+.cube__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(12px, 1vw, 20px);
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.cube__name {
+  display: block;
+  color: var(--text-primary);
+  font-size: clamp(13px, 1.05vw, 17px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.cube__region {
+  display: block;
+  margin-top: 3px;
+  color: var(--gold-mid);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cube:hover {
+  border-color: var(--border-gold-hover);
+}
+
+.cube:hover .cube__media img {
+  transform: scale(1.05);
+}
+
+.cube:hover .cube__content {
+  transform: translateY(-2px);
+}
+
+.cube--feature .cube__name {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(22px, 2.2vw, 34px);
+  letter-spacing: 0.012em;
+}
+
+/* --------------------------------------------------------------------------
+   Mosaic: tall feature holding the left column against a field of cubes
+   -------------------------------------------------------------------------- */
+
+.mosaic {
+  display: grid;
+  grid-template-columns: 0.86fr 1.14fr;
+  align-items: stretch;
+  gap: clamp(12px, 1.3vw, 20px);
+}
+
+.mosaic__feature {
+  aspect-ratio: 1 / 1;
+}
+
+.mosaic__field {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.3vw, 20px);
+}
+
+.mosaic__field > li {
+  display: flex;
+  min-height: 0;
+}
+
+.mosaic__field .cube {
+  flex: 1;
+  aspect-ratio: auto;
+}
+
+/* ==========================================================================
+   LARGE CINEMATIC DESTINATION MOMENT
+   ========================================================================== */
+
+.moment {
+  position: relative;
+  isolation: isolate;
+  padding-top: clamp(96px, 13vw, 240px);
+  padding-bottom: 0;
+}
+
+.moment__media {
+  position: absolute;
+  inset: 0 0 clamp(64px, 7vw, 128px) 0;
+  z-index: -1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 88%, transparent 100%);
+}
+
+.moment__media img {
+  object-fit: cover;
+}
+
+.moment__scrim {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, var(--egypt-scrim-a) 0%, var(--egypt-scrim-b) 44%, transparent 82%),
+    linear-gradient(180deg, var(--egypt-scrim-top) 0%, transparent 26%, var(--egypt-scrim-top) 100%);
+}
+
+.moment__inner {
+  position: relative;
+  max-width: none;
+}
+
+.moment__title {
+  margin-top: clamp(6px, 0.8vw, 12px);
+  max-width: 22ch;
+  font-size: clamp(34px, 4.2vw, 68px);
+  color: var(--text-primary);
+}
+
+.moment__lede {
+  margin-top: clamp(14px, 1.4vw, 22px);
+  margin-bottom: clamp(22px, 2.4vw, 34px);
+  color: var(--text-secondary);
+  font-size: clamp(13px, 1vw, 15.5px);
+  font-weight: 300;
+  line-height: 1.66;
+}
+
+/* Cubes straddle the photograph's lower edge. */
+.moment__overlap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.3vw, 20px);
+  margin-top: clamp(52px, 7vw, 128px);
+}
+
+/* ==========================================================================
+   DESTINATION RAIL — horizontal at every width
+   ========================================================================== */
+
+.rail {
+  display: flex;
+  gap: clamp(12px, 1.3vw, 20px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail > li {
+  flex: 0 0 auto;
+  width: clamp(200px, 22vw, 300px);
+  scroll-snap-align: start;
+}
+
+.rail .cube {
+  aspect-ratio: 4 / 5;
+}
+
+/* ==========================================================================
+   CURATED EXPERIENCES — asymmetric field, first tile runs tall
+   ========================================================================== */
+
+.experiences__grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.62fr) 1.7fr;
+  align-items: center;
+  gap: clamp(30px, 4vw, 76px);
+}
+
+.experiences__title {
+  font-size: clamp(30px, 3.3vw, 50px);
+  color: var(--text-primary);
+}
+
+.experiences__lede {
+  margin-top: clamp(14px, 1.4vw, 22px);
+  color: var(--text-secondary);
+  font-size: clamp(13px, 1vw, 15.5px);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.experiences__cta {
+  margin-top: clamp(20px, 2.2vw, 32px);
+}
+
+/* Rows need an explicit height: unlike the mosaic there is no aspect-ratio
+   tile to anchor them, so `1fr` would collapse to zero. */
+.experiences__field {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  grid-template-rows: repeat(2, clamp(140px, 12.5vw, 208px));
+  gap: clamp(10px, 1.1vw, 18px);
+}
+
+.experiences__field > li {
+  display: flex;
+  min-height: 0;
+}
+
+/* Placed explicitly: auto-placement pushes the fourth tile into an implicit
+   third row, where it collapses to nothing. */
+.experiences__field > li.is-tall {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.experiences__field > li:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.experiences__field > li:nth-child(3) {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+}
+
+.experiences__field > li:nth-child(4) {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.exp-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  overflow: hidden;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-card);
+  transition: border-color var(--dur-hover) var(--ease-lux);
+}
+
+.exp-tile__media {
+  position: absolute;
+  inset: 0;
+}
+
+.exp-tile__media img {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.exp-tile__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    180deg,
+    transparent 18%,
+    rgba(11, 11, 12, 0.5) 46%,
+    rgba(11, 11, 12, 0.94) 100%
+  );
+}
+
+.exp-tile__body {
+  position: relative;
+  padding: clamp(12px, 1.1vw, 20px);
+}
+
+.exp-tile__name {
+  display: block;
+  color: var(--text-primary);
+  font-size: clamp(11px, 0.86vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.exp-tile__meta {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 300;
+}
+
+.exp-tile:hover {
+  border-color: var(--border-gold-hover);
+}
+
+.exp-tile:hover .exp-tile__media img {
+  transform: scale(1.05);
+}
+
+.exp-tile:hover .exp-tile__name {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   EGYPT LUXURY TOURS — full-bleed cinematic band
+   ========================================================================== */
+
+.egypt {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(74px, 8.4vw, 152px);
+}
+
+/* Dissolved top and bottom so the band reads as a passage of the page rather
+   than a pasted rectangle. */
+.egypt__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+}
+
+.egypt__media img {
+  object-fit: cover;
+}
+
+.egypt__scrim {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      90deg,
+      var(--egypt-scrim-a) 0%,
+      var(--egypt-scrim-b) 42%,
+      var(--egypt-scrim-c) 88%
+    ),
+    linear-gradient(180deg, var(--egypt-scrim-top) 0%, transparent 22%, var(--egypt-scrim-top) 100%);
+}
+
+.egypt__copy {
+  max-width: min(50ch, 48%);
+}
+
+.egypt__title {
+  margin-top: clamp(6px, 0.8vw, 12px);
+  font-size: clamp(30px, 3.3vw, 50px);
+  color: var(--text-primary);
+}
+
+.egypt__lede {
+  margin-top: clamp(14px, 1.4vw, 22px);
+  margin-bottom: clamp(20px, 2.2vw, 32px);
+  color: var(--text-secondary);
+  font-size: clamp(13px, 1vw, 15.5px);
+  font-weight: 300;
+  line-height: 1.66;
+}
+
+.egypt__advantages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(44px, 5.4vw, 92px);
+  padding-top: clamp(20px, 2.2vw, 34px);
+  border-top: var(--border-width) solid var(--border-divider);
+}
+
+.advantage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(9px, 0.9vw, 14px);
+  padding-inline: clamp(6px, 0.9vw, 18px);
+}
+
+.advantage + .advantage::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 1px;
+  background-color: var(--border-divider);
+}
+
+.advantage__icon {
+  flex: none;
+  color: var(--gold-primary);
+}
+
+.advantage__title {
+  color: var(--text-primary);
+  font-size: clamp(9.5px, 0.74vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.advantage__copy {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: clamp(10px, 0.76vw, 11px);
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   VIP CONCIERGE
+   ========================================================================== */
+
+.concierge__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.12fr;
+  align-items: center;
+  gap: clamp(30px, 4vw, 78px);
+}
+
+.concierge__title {
+  font-size: clamp(30px, 3.3vw, 50px);
+  color: var(--text-primary);
+}
+
+.concierge__lede {
+  margin-top: clamp(14px, 1.4vw, 22px);
+  margin-bottom: clamp(20px, 2.2vw, 32px);
+  color: var(--text-secondary);
+  font-size: clamp(13px, 1vw, 15.5px);
+  font-weight: 300;
+  line-height: 1.66;
+}
+
+.concierge__media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-card);
+}
+
+.concierge__media img {
+  object-fit: cover;
+}
+
+.concierge__mediaScrim {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, var(--concierge-scrim) 0%, transparent 46%);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: clamp(40px, 4.6vw, 76px) 0 0;
+  padding-top: clamp(20px, 2.2vw, 32px);
+  border-top: var(--border-width) solid var(--border-divider);
+}
+
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 5px;
+  padding-inline: 10px;
+  text-align: center;
+}
+
+.stat + .stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+  background-color: var(--border-divider);
+}
+
+.stat__value {
+  margin: 0;
+  color: var(--gold-light);
+  font-size: clamp(26px, 2.5vw, 38px);
+  line-height: 1;
+}
+
+.stat__label {
+  color: var(--text-muted);
+  font-size: clamp(8.5px, 0.66vw, 10px);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   TRAVEL GUIDES & STORIES
+   ========================================================================== */
+
+.guides__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(230px, 24vw, 360px);
+  gap: clamp(12px, 1.3vw, 20px);
+}
+
+.guides__grid > li:first-child {
+  grid-column: span 2;
+}
+
+.guide {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-card);
+  transition: border-color var(--dur-hover) var(--ease-lux);
+}
+
+.guide__media {
+  position: absolute;
+  inset: 0;
+}
+
+.guide__media img {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.guide__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    180deg,
+    transparent 36%,
+    rgba(11, 11, 12, 0.86) 100%
+  );
+}
+
+.guide__body {
+  position: absolute;
+  left: clamp(14px, 1.2vw, 22px);
+  right: clamp(14px, 1.2vw, 22px);
+  bottom: clamp(14px, 1.2vw, 20px);
+  z-index: 1;
+}
+
+.guide__meta {
+  margin-top: 0;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 9.5px;
+  font-weight: 500;
+}
+
+.guide__title {
+  display: block;
+  margin-top: 7px;
+  color: var(--text-primary);
+  font-size: clamp(17px, 1.4vw, 24px);
+  line-height: 1.18;
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+
+.guide__arrow {
+  display: block;
+  margin-top: 10px;
+  color: var(--gold-primary);
+  transition: transform var(--dur-hover) var(--ease-lux);
+}
+
+.guide:hover {
+  border-color: var(--border-gold-hover);
+}
+
+.guide:hover .guide__media img {
+  transform: scale(1.05);
+}
+
+.guide:hover .guide__title {
+  transform: translateX(3px);
+}
+
+.guide:hover .guide__arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   PRIVATE JOURNEY — closing CTA
+   ========================================================================== */
+
+.journey {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(96px, 11vw, 200px);
+  text-align: center;
+}
+
+.journey__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.journey__media img {
+  object-fit: cover;
+}
+
+.journey__scrim {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(180deg, var(--journey-scrim-edge) 0%, var(--journey-scrim-mid) 46%, var(--journey-scrim-edge) 100%),
+    linear-gradient(90deg, var(--journey-scrim-edge) 0%, transparent 34%, transparent 66%, var(--journey-scrim-edge) 100%);
+}
+
+.journey__title {
+  font-size: clamp(30px, 3.6vw, 56px);
+  color: var(--text-primary);
+}
+
+.journey__lede {
+  margin-top: clamp(14px, 1.4vw, 22px);
+  color: var(--text-secondary);
+  font-size: clamp(13px, 1vw, 15.5px);
+  font-weight: 300;
+  line-height: 1.66;
+}
+
+.journey__actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(12px, 1.2vw, 18px);
+  margin-top: clamp(26px, 2.8vw, 40px);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.footer {
+  border-top: var(--border-width) solid var(--border-divider);
+  background-color: var(--bg-deep);
+  padding-block: clamp(42px, 4.6vw, 76px);
+}
+
+.footer__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(28px, 4vw, 64px);
+  flex-wrap: wrap;
+}
+
+.footer__brand {
+  width: clamp(126px, 12vw, 168px);
+}
+
+.footer__statement {
+  margin-top: clamp(16px, 1.6vw, 24px);
+  color: var(--champagne);
+  font-size: clamp(19px, 1.7vw, 27px);
+  line-height: 1.2;
+}
+
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(18px, 2.2vw, 40px);
+  padding-top: 8px;
+}
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: clamp(34px, 3.6vw, 58px);
+  padding-top: clamp(18px, 1.8vw, 26px);
+  border-top: var(--border-width) solid var(--border-divider);
+}
+
+.footer__utility,
+.footer__social {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.6vw, 26px);
+}
+
+.footer__utility a {
+  color: var(--text-muted);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease-lux);
+}
+
+.footer__utility a:hover,
+.footer__social a:hover {
+  color: var(--gold-primary);
+}
+
+.footer__social a {
+  color: var(--text-muted);
+  transition: color var(--dur-hover) var(--ease-lux);
+}
+
+.footer__legal {
+  color: var(--text-meta);
+  font-size: 10.5px;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   HEADER ACTIONS / APP SHELL CHROME
+   ========================================================================== */
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 32px);
+}
+
+/* Phone-only utility affordance. */
+.utility-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-pill);
+  color: var(--gold-primary);
+}
+
+.bottom-nav {
+  display: none;
+}
+
+.drawer__actions {
+  margin-top: clamp(24px, 5vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(20px, 4vw, 30px);
+}
+
+.drawer__mode {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   TABLET — editorial reflow, not the phone shell
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  .experiences__grid {
+    grid-template-columns: minmax(200px, 0.72fr) 1.5fr;
+  }
+}
+
+@media (max-width: 1023px) {
+  .offers__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offers__rail > li:last-child {
+    grid-column: span 2;
+  }
+
+  .offers__rail > li:last-child .offer {
+    aspect-ratio: 21 / 9;
+  }
+
+  /* Feature above, cubes in a 3-up field beneath. */
+  .mosaic {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mosaic__feature {
+    aspect-ratio: 16 / 9;
+  }
+
+  .mosaic__field {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .mosaic__field .cube {
+    aspect-ratio: 1 / 1;
+  }
+
+  .moment__overlap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .experiences__grid,
+  .concierge__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(26px, 4vw, 40px);
+  }
+
+  .experiences__field {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .experiences__field > li,
+  .experiences__field > li.is-tall,
+  .experiences__field > li:nth-child(2),
+  .experiences__field > li:nth-child(3),
+  .experiences__field > li:nth-child(4) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .experiences__field .exp-tile {
+    aspect-ratio: 4 / 3;
+  }
+
+  .egypt__copy {
+    max-width: none;
+  }
+
+  .egypt__advantages,
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(20px, 3vw, 30px);
+  }
+
+  .advantage:nth-child(2n + 1)::before,
+  .stat:nth-child(2n + 1)::before {
+    display: none;
+  }
+
+  .guides__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .guides__grid > li:first-child {
+    grid-column: span 2;
+  }
+}
+
+/* ==========================================================================
+   PHONE — app-shell language
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  body {
+    /* Clear the fixed bottom navigation. */
+    padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* An app home leads with search, not with the cinematic frame. */
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  main > * {
+    order: 3;
+  }
+
+  .booking-section {
+    order: 1;
+    margin-top: 0;
+    padding-top: calc(var(--nav-h) + 10px);
+  }
+
+  .hero {
+    order: 2;
+  }
+
+  /* No longer the top of the page, so the frame needs a top edge to dissolve
+     into as well as a bottom one. */
+  .hero__media {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 82%, transparent 100%);
+  }
+
+  .hero__stage {
+    padding-top: clamp(48px, 14vw, 90px);
+  }
+
+  .greeting {
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .greeting__hello {
+    color: var(--text-primary);
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .greeting__sub {
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-weight: 300;
+  }
+
+  .utility-btn {
+    display: inline-flex;
+  }
+
+  .section {
+    padding-block: clamp(34px, 8vw, 48px);
+  }
+
+  /* The link cannot shrink, so a long label would push the row past the
+     viewport. Stack instead of squeezing. */
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .section-head__link {
+    padding-bottom: 0;
+  }
+
+  /* Horizontal snap rails, per the mobile boards. */
+  .offers__rail {
+    display: flex;
+    grid-template-columns: none;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
+
+  .offers__rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .offers__rail > li {
+    flex: 0 0 auto;
+    width: 78vw;
+    scroll-snap-align: start;
+  }
+
+  .offers__rail > li:last-child {
+    grid-column: auto;
+  }
+
+  .offers__rail > li:last-child .offer {
+    aspect-ratio: 16 / 11;
+  }
+
+  .rail > li {
+    width: 62vw;
+  }
+
+  /* Two-column app grid of destination cubes. */
+  .mosaic {
+    gap: 10px;
+  }
+
+  .mosaic__feature {
+    aspect-ratio: 5 / 4;
+  }
+
+  .mosaic__field {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .moment {
+    padding-top: clamp(72px, 22vw, 120px);
+  }
+
+  .moment__overlap {
+    gap: 10px;
+    margin-top: clamp(40px, 12vw, 64px);
+  }
+
+  .experiences__field {
+    gap: 10px;
+  }
+
+  .guides__grid {
+    display: flex;
+    grid-auto-rows: auto;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
+
+  .guides__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .guides__grid > li,
+  .guides__grid > li:first-child {
+    flex: 0 0 auto;
+    grid-column: auto;
+    width: 74vw;
+    height: 58vw;
+    scroll-snap-align: start;
+  }
+
+  .egypt__advantages,
+  .stats {
+    row-gap: 20px;
+  }
+
+  .journey__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .footer {
+    padding-bottom: clamp(34px, 8vw, 48px);
+  }
+
+  .footer__top {
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .footer__nav {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* Fixed app-shell tab bar. */
+  .bottom-nav {
+    display: block;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 30;
+    border-top: var(--border-width) solid var(--border-gold-subtle);
+    background-color: color-mix(in srgb, var(--surface) 94%, transparent);
+    backdrop-filter: blur(14px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .bottom-nav ul {
+    display: flex;
+  }
+
+  .bottom-nav li {
+    flex: 1;
+  }
+
+  .bottom-nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 2px 11px;
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color var(--dur-hover) var(--ease-lux);
+  }
+
+  .bottom-nav__item[aria-current="page"] {
+    color: var(--gold-primary);
+  }
+
+  /* Touch feedback in place of hover. */
+  .cube:active,
+  .offer:active,
+  .exp-tile:active,
+  .guide:active {
+    transform: scale(0.985);
+  }
+}
+
+/* ==========================================================================
+   COMMERCE — badge, price, card controls
+   Prototype pricing UI. Money values are illustrative; the server owns them
+   once the booking engine exists.
+   ========================================================================== */
+
+/* Labelled link covering the whole card. Sits above the artwork and text but
+   below the controls, so the card is clickable and the buttons still work. */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+
+.card-overlay:focus-visible {
+  outline-offset: -4px;
+}
+
+/* --------------------------------------------------------------------------
+   Limited-discount badge — real DOM, never baked into the photograph
+   -------------------------------------------------------------------------- */
+
+.badge {
+  position: absolute;
+  top: clamp(10px, 0.9vw, 16px);
+  left: clamp(10px, 0.9vw, 16px);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 5px;
+  border: var(--border-width) solid var(--border-gold-strong);
+  border-radius: var(--radius-pill);
+  background-color: color-mix(in srgb, var(--bg-deep) 82%, transparent);
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+
+.badge__pct {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background-image: var(--gold-metallic);
+  background-size: 220% 100%;
+  background-position: 26% 0;
+  color: #2b1c07;
+  font-size: clamp(9px, 0.7vw, 10.5px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.badge__label {
+  color: var(--champagne);
+  font-size: clamp(7.5px, 0.58vw, 9px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Price
+   -------------------------------------------------------------------------- */
+
+.price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+}
+
+.price__prefix {
+  color: var(--text-muted);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.price__old {
+  color: var(--text-muted);
+  font-size: clamp(10px, 0.76vw, 11.5px);
+  font-weight: 300;
+  text-decoration-color: var(--gold-primary);
+  text-decoration-thickness: 1px;
+}
+
+.price__now {
+  color: var(--champagne);
+  font-size: clamp(11px, 0.84vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Card controls
+   -------------------------------------------------------------------------- */
+
+.card-actions {
+  position: relative;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 30px;
+  padding: 0 9px;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-pill);
+  background-color: color-mix(in srgb, var(--bg-deep) 62%, transparent);
+  cursor: pointer;
+  color: var(--gold-primary);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    color var(--dur-hover) var(--ease-lux),
+    border-color var(--dur-hover) var(--ease-lux),
+    background-color var(--dur-hover) var(--ease-lux);
+}
+
+.card-action:hover {
+  border-color: var(--border-gold-hover);
+  background-color: color-mix(in srgb, var(--gold-primary) 20%, transparent);
+  color: var(--gold-light);
+}
+
+.card-action.is-on {
+  border-color: var(--border-gold-hover);
+  background-color: color-mix(in srgb, var(--gold-primary) 26%, transparent);
+  color: var(--gold-light);
+}
+
+.card-action:active {
+  transform: scale(0.94);
+}
+
+.card-actions--compact .card-action {
+  min-height: 28px;
+  padding: 0 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Card footers
+   -------------------------------------------------------------------------- */
+
+.cube__foot,
+.exp-tile__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: clamp(8px, 0.7vw, 12px);
+  padding-top: clamp(8px, 0.7vw, 12px);
+  border-top: var(--border-width) solid var(--border-divider);
+}
+
+/* The smallest tiles carry price and controls only — no room for more. */
+@media (max-width: 1023px) {
+  .badge__label {
+    display: none;
+  }
+
+  .badge {
+    padding-right: 5px;
+  }
+}

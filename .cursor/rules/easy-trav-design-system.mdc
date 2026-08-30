@@ -1,0 +1,473 @@
+---
+description: Authoritative Easy Trav visual design system. Governs every theme, layout, component, card, section, hover, motion, and visual decision. Conflicts with this rule must be flagged and approved before acting.
+alwaysApply: true
+---
+
+# EASY TRAV — LOCKED CORE DESIGN SYSTEM
+
+This rule is authoritative for **all Easy Trav visual design**.
+
+`CLAUDE.md` remains authoritative for architecture, engineering, security, TypeScript, performance, and repository rules.
+
+If a future prompt conflicts with this visual system: **stop, flag the conflict, and ask before breaking it.** Do not silently follow the conflicting instruction.
+
+Do not redesign Easy Trav. Evolve within this system.
+
+---
+
+## 1. Brand positioning
+
+Easy Trav is a **premium global travel and lifestyle brand**.
+
+Closer to: private aviation, five-star hospitality, luxury concierge, premium travel clubs, bespoke tour operators, high-end lifestyle brands, private banking / premium membership.
+
+Never: Booking.com, Expedia, Skyscanner, generic travel templates, SaaS dashboards, fintech apps, startup landing pages, WordPress themes, cheap Egypt-tour sites.
+
+Emotional qualities: exclusive, cinematic, editorial, refined, warm, premium, bespoke, global, trusted, VIP, mature, effortless, personal.
+
+Core promise: **TRAVEL MADE EASY**.
+
+---
+
+## 2. Reference hierarchy — locked
+
+Reconcile all visual work against `/public/references/easy-trav/`.
+
+| Level | Authority | Files |
+| --- | --- | --- |
+| 1 | Desktop structure (PRIMARY) | `01-canonical-homepage.png` |
+| 2 | Onyx translation of the same architecture | `02-canonical-homepage-dark-mode-of-the-site.png` |
+| 3 | Phone / app visual language | `02-mobile-brand-system-royal-purple-mode.png`, `02-mobile-brand-system-black-mode.png` |
+| 4 | Supporting brand only | `04-mobile-brand-system-black-mode.png`, `branding-reference-of-easy-trav.png`, `card-lay-outs.png`, `card-lay-out-mobile-version-royal-purple.png`, `10-canonical-homepage-red-box.png` |
+
+Lower levels may clarify style. They **must never override** higher levels.
+
+`10-canonical-homepage-red-box.png` only confirms which part of the presentation is the homepage.
+
+**Do not reproduce** laptop hardware, desk, passport, pen, invitation card, presentation-board furniture, right-hand reference panels, or the bottom presentation-board branding strip. Those are not webpage elements.
+
+---
+
+## 3. Brand isolation — absolute
+
+Easy Trav is completely separate from Hathor.
+
+Never import, reuse, reference, adapt, or derive visual decisions from Hathor colors, fonts, components, motion, layout, imagery, editorial DNA, design skills, or page structure.
+
+If Hathor context appears in memory: **ignore it**. Easy Trav visual rules always win.
+
+---
+
+## 4. Two themes — one website
+
+Modes: **Royal** and **Onyx**. Not two designs.
+
+They share identical DOM, component architecture, typography, layout, spacing, radii, imagery architecture, responsive logic, and content hierarchy.
+
+Only environmental treatment changes. Never build separate Royal and Onyx layouts.
+
+---
+
+## 5. Royal mode — locked
+
+Read as: deep wine / royal plum + warm amber photography + antique gold + warm ivory.
+
+Must not feel: bright purple, magenta, neon, gaming, cyberpunk, synthetic, overly clean/digital purple.
+
+Authoritative tokens:
+
+```css
+--bg-deep: #160C19;
+--bg-primary: #211024;
+--surface: #2E1531;
+--surface-soft: #28132C;
+```
+
+Role mapping:
+
+- `#160C19` — deepest shadow / background / gradient terminus
+- `#211024` — dominant Royal page environment
+- `#2E1531` — elevated surfaces (booking panels, selected cards, concierge surfaces)
+- `#28132C` — intermediate surfaces, tabs, hovers, secondary elevation
+
+Royal is **not** a flat `#2E1531` page. Use layered dark-plum atmosphere.
+
+Typical atmosphere:
+
+```css
+linear-gradient(180deg, #211024 0%, #1B0D1E 55%, #160C19 100%);
+```
+
+A radial layer is allowed only when so subtle it is not perceived as a blob. No visible purple circles. No giant brown/purple haze.
+
+---
+
+## 6. Onyx mode — locked
+
+Read as: luxury black + warm amber / bronze photography + antique gold + warm ivory.
+
+Authoritative tokens:
+
+```css
+--bg-deep: #0B0B0C;
+--bg-primary: #0F0F10;
+--surface: #171314;
+--surface-soft: #211B19;
+```
+
+Role mapping:
+
+- `#0B0B0C` — deepest black areas
+- `#0F0F10` — main Onyx page environment
+- `#171314` — elevated surfaces
+- `#211B19` — extremely restrained warm secondary surface
+
+Onyx stays predominantly **black**. Brown warmth is sensed, not painted across the UI.
+
+Do not make Onyx brown, grey, charcoal, flat `#000000`, or cold blue-black.
+
+Typical environment:
+
+```css
+radial-gradient(circle at 78% 18%, rgba(139, 93, 40, 0.08), transparent 38%),
+linear-gradient(180deg, #0F0F10 0%, #0D0D0E 60%, #0B0B0C 100%);
+```
+
+---
+
+## 7. Gold system — locked
+
+Primary gold: `--gold-primary: #B88A38`.
+
+Use for: primary line icons, eyebrow labels, active tabs, selected nav details, subtle outlines, small accents, decorative rules, tiny arrows.
+
+Secondary:
+
+- `--gold-dark: #8B5D28` — depth/shadow only. Never primary readable text.
+- `--gold-mid: #C99545` — hover / enhanced active.
+- `--gold-light: #E4C178` — specular highlights only, small amounts.
+- `--champagne: #EAD6B8` — soft luxury accent.
+
+Do **not** use `#B87333` or `#BBBA38` as site primary gold. Those are superseded exploratory board values.
+
+---
+
+## 8. Metallic gold — restricted
+
+```css
+linear-gradient(135deg, #8B5D28 0%, #B88A38 25%, #C99545 45%, #E4C178 55%, #C99545 72%, #8B5D28 100%);
+```
+
+This is a **material effect**. Reserve for: logo highlights where appropriate, SEARCH CTA, selected premium primary buttons, tiny high-value highlights.
+
+Do not use metallic on body text, every icon, every border, every heading, or every button.
+
+Most gold stays flat `#B88A38`. Gold feels precious through restraint.
+
+Approximate page balance: 80–90% dark environment / imagery, 5–10% ivory, 3–7% gold.
+
+---
+
+## 9. Border system — locked
+
+Default width: **1px**.
+
+- Subtle: `rgba(184, 138, 56, 0.24)`
+- Interactive: `rgba(184, 138, 56, 0.42)`
+- Hover / selected: `rgba(201, 149, 69, 0.62)`
+- Hairline divider: `rgba(234, 214, 184, 0.10)`
+
+Never thick gold outlines. Never gold boxes everywhere. Borders disappear into the composition until needed.
+
+---
+
+## 10. Ivory / text system — locked
+
+- Primary: `#F7F1E6`
+- Secondary: `rgba(246, 241, 232, 0.72)`
+- Small / essential muted: `rgba(246, 241, 232, 0.54)`
+- Decorative / non-essential only: `rgba(246, 241, 232, 0.42)`
+
+`0.42` may **never** be used for small meaningful information: dates, prices, booking values, field labels, important metadata, navigation, functional controls. Those use `0.54` or stronger.
+
+Do not introduce generic neutral grey typography. Muted text stays warm ivory.
+
+---
+
+## 11. Typography — absolutely locked
+
+- Display / editorial: **Cormorant Garamond**
+- Body / UI / navigation: **Montserrat**
+
+Both fonts apply in **both** themes. Never switch Onyx to Poppins or Inter. Never add another display family without explicit approval.
+
+Cormorant: hero headlines, major editorial headings, destination/experience names, cinematic statements, select editorial numbers/statistics.
+
+Montserrat: navigation, buttons, body, fields, labels, prices, cards, metadata, utility UI.
+
+Luxury comes from hierarchy and spacing — not oversized type.
+
+---
+
+## 12. Typographic character
+
+Editorial titles: refined, light, elegant, high-contrast, restrained.
+
+Use controlled small-cap / uppercase treatment where the references indicate it. If synthetic browser small-caps look inferior, compose the visual effect manually while keeping semantic text accessible.
+
+Do not: use very heavy Cormorant, make every heading huge, make all text uppercase, or use excessive letter-spacing on body copy.
+
+---
+
+## 13. Logo — absolutely locked
+
+Use only the Easy Trav logo already established by the references/assets.
+
+The mark: three flowing ribbon forms + four-point star/spark + EASY TRAV + TRAVEL MADE EASY.
+
+Never redraw, reinterpret, simplify, substitute, replace with text, or change star/ribbon geometry or proportions.
+
+Temporary raster may remain until the official SVG is supplied. Design the container so the production SVG swaps 1:1 without layout changes.
+
+---
+
+## 14. Imagery — core brand language
+
+Photography is central. The site is image-led.
+
+- Production: `/public/images/`, `/public/images/destinations/`
+- Design references: `/public/references/easy-trav/`
+
+Never use presentation-board screenshots as final webpage sections. Never place laptop/phone mockup screenshots inside the website unless explicitly asked.
+
+Photography: cinematic, warm, editorial, premium, high-resolution, realistic, professionally graded.
+
+Preferred: warm highlights, deep shadows, restrained saturation, golden-hour light, cinematic contrast, rich black/plum shadows.
+
+Avoid: HDR, over-saturation, tourist-brochure colour, generic blue travel imagery, cheap stock, cartoonish AI images.
+
+---
+
+## 15. Image / text balance
+
+Use more imagery than a typical corporate site, without clutter.
+
+Prefer: image-led sections, editorial crops, full-bleed photography, destination mosaics, square destination cubes, horizontal visual rails, large cinematic scenes.
+
+Over: large empty dark areas with isolated text.
+
+Do not let plain dark background dominate the entire page.
+
+---
+
+## 16. Desktop design DNA
+
+Desktop = luxury travel editorial + premium booking platform.
+
+Characteristics: full-width cinematic moments, asymmetrical editorial layouts, compact functional UI, thin gold detail, large photography, offset grids, layered sections, shared alignment lines, premium destination discovery, visual variation.
+
+The page must not feel like stacked SECTION / SECTION / SECTION. It is one continuous art-directed composition.
+
+---
+
+## 17. Desktop scale
+
+Important widths: 1920×1080, 1600, 1440, 1280.
+
+Do not constrain the entire page to a narrow 1200px box. Readable text may use narrower widths. Imagery may extend wide, edge-to-edge, full-bleed.
+
+Selected cinematic sections may approach 80–100vh when justified. Do not make every section full-screen. Rhythm is mandatory.
+
+---
+
+## 18. Hero design DNA
+
+Canonical hero: Giza pyramids, sunset, hot-air balloon, warm amber light, dark foreground.
+
+Left: eyebrow, EXPLORE MORE. WORRY LESS., subcopy, DISCOVER NOW.
+
+Right: visual scene and VIP Concierge.
+
+Never: a centered SaaS headline, generic full-screen text over image, flat purple, pure black, or a visible CSS spotlight.
+
+CSS gradients support the photograph. They do not replace it.
+
+---
+
+## 19. Hero grading
+
+Royal: left readability gradient, deep plum shadows, amber photography preserved, dusty wine/plum sky, warm sunset visible.
+
+Onyx: near-black left readability gradient, warmer amber photography, deeper shadows, minimal plum, subtle bronze warmth.
+
+Any radial effect must be nearly imperceptible. If a CSS gradient looks like a visible brown/purple cloud, it is wrong.
+
+---
+
+## 20. Booking UI DNA
+
+Desktop booking: compact, premium, integrated, precise. Not giant input boxes.
+
+Use: thin separators, small labels, ivory values, gold active tab, metallic SEARCH CTA, subtle surface contrast.
+
+Avoid: generic white forms, SaaS inputs, glassmorphism, heavy blur.
+
+---
+
+## 21. Destination cube system — locked
+
+"Cube cards" means **square / near-square image tiles**. Not literal 3D cubes. Never spinning 3D boxes.
+
+Cubes: photographic, compact, cinematic, editorial, premium.
+
+Content usually: destination, small region/category, tiny arrow. The image does the work.
+
+Typical: 12–18px radius, 1px subtle border, dark bottom image gradient, warm ivory title, gold micro-accent.
+
+Hover: scale image ~1.04–1.06, small crop shift, small title/arrow movement, border warms.
+
+Never: heavy text blocks, opaque card plates, purple cards everywhere, big shadows.
+
+---
+
+## 22. Editorial layout rule
+
+Never default to four identical cards simply because there are four items.
+
+Use: 2×2 mosaics, one large + multiple squares, tall image + grid, image + offset rail, asymmetrical compositions, overlapping cards, varying image ratios.
+
+Choose based on photography.
+
+---
+
+## 23–29. Mobile — absolutely locked
+
+Phone Easy Trav must feel like a **premium travel app**, not a desktop website stacked vertically.
+
+Primary references: `02-mobile-brand-system-royal-purple-mode.png`, `02-mobile-brand-system-black-mode.png`.
+
+Technically it remains a responsive Next.js website. Visually it should feel native/app-like.
+
+At ~375–430px use: compact app header, search/discovery near top, quick service icons, image-led cards, square destination cubes, horizontal rails, compact dense UI, premium rounded surfaces, bottom navigation, occasional cinematic tall imagery.
+
+Mobile has **higher useful density** than desktop. Do not make it excessively sparse.
+
+**Header:** do not squeeze desktop navigation onto mobile. App-style: logo/mark, small utilities, menu/profile/notification where appropriate. Theme switching may live in drawer/settings rather than crowding the header.
+
+**Search / services:** near the top, prioritize “Where do you want to go?” then quick shortcuts: Flights, Hotels, Experiences, Transfers. Thin gold line icons. Do **not** expose the desktop six-column booking form first. Advanced fields may use disclosure/drawer.
+
+**Destination discovery:** many destination visuals. Prefer 2-column square cubes, horizontal snap rails, one larger featured destination, compact cards. Phone users should see multiple choices within approximately 1–2 screen heights. Avoid one massive card after another.
+
+**Bottom nav:** Home, Bookings, Trips, Offers, Profile. Fixed/sticky bottom app bar, active Home in gold, inactive warm ivory, thin upper border, safe-area support, accessible links, page content never hidden. Do not show this on desktop.
+
+**Motion / scroll:** native mobile scrolling. Never install Lenis for mobile. Never scroll-jack. Use CSS snap rails, subtle active/pressed states, fast transitions, native momentum. App feel comes from layout/interactions, not hijacked scrolling.
+
+---
+
+## 30. Tablet
+
+Tablet is a deliberate bridge. 768–1024: editorial imagery, 2-column grids, reduced nav, compact booking, rails where appropriate.
+
+Do not simply use desktop or the full phone shell unchanged.
+
+---
+
+## 31. Card / surface language
+
+Typical radii: 10–18px. Restraint. No oversized rounded SaaS cards.
+
+Avoid: glassmorphism everywhere, large blur, big drop shadows, floating dashboard panels.
+
+Cards feel embedded in the editorial composition.
+
+---
+
+## 32. Icon language
+
+Thin stroke, open, minimal, gold, rounded terminals where appropriate.
+
+Preserve the current local SVG icon system. Do not introduce another icon library unless explicitly approved. Never cartoon filled icons.
+
+---
+
+## 33. Motion language
+
+Motion feels like luxury hospitality, not a tech demo.
+
+Allowed: gentle fade/reveal, small vertical movement, image scale ~1.04, subtle parallax, tiny CTA sheen, soft line reveals, premium hover states.
+
+Avoid: bounce, spin, giant zoom, random rotation, flying elements, heavy 3D, cursor gimmicks.
+
+Static visual composition always comes first.
+
+---
+
+## 34. No design drift
+
+Never casually introduce: new brand colors, new fonts, random gradients, neon, blue brand accents, generic grey, white page backgrounds, bright purple, SaaS UI, oversized round cards, excessive glow, heavy blur, generic glassmorphism, cartoon illustration, random 3D, unrelated stock photography.
+
+If a new requirement is incompatible with this locked system: **STOP, FLAG IT, ASK FOR APPROVAL.** Do not silently drift.
+
+---
+
+## 35. Content style
+
+Copy: short, editorial, refined, confident, premium, human.
+
+Examples: JOURNEYS CURATED FOR YOU / EXPLORE MORE. WORRY LESS. / CURATED EXPERIENCES / YOUR JOURNEY. OUR PRIORITY. / TRAVEL MADE PERSONAL.
+
+Avoid: generic AI copy, long corporate paragraphs, excessive luxury adjectives, keyword stuffing in visual UI.
+
+---
+
+## 36. Real Easy Trav business
+
+This project will eventually rebuild https://www.easy-trav.com/
+
+The existing live site is **business / content context only**. It is **not** a design reference.
+
+Preserve Easy Trav’s strength in: Egypt, Cairo, Giza, Luxor, Aswan, Hurghada, Marsa Alam, Sharm El-Sheikh, Marsa Matrouh, Red Sea, Nile experiences, private tours, travel experiences, travel guides.
+
+Elevate the presentation to this locked visual system.
+
+---
+
+## 37. Accessibility must not break design
+
+Maintain: semantic HTML, keyboard focus, real anchors/buttons, proper alt text, accessible tab patterns, reduced-motion support, sufficient contrast.
+
+Do not remove accessibility to improve appearance. Use the locked ivory ladder.
+
+---
+
+## 38. Performance must not break design
+
+Use `next/image` properly. Hero only: `priority` when LCP. Below the fold: lazy load. Correct `sizes`, dimensions, aspect ratios, responsive delivery.
+
+Do not preload destination grids. Do not send desktop-size imagery unnecessarily to phones.
+
+Luxury does not justify poor Core Web Vitals.
+
+---
+
+## 39. Design review rule
+
+Whenever changing a major visual area, compare against:
+
+- Desktop: `01-canonical-homepage.png`, `02-canonical-homepage-dark-mode-of-the-site.png`
+- Mobile: `02-mobile-brand-system-royal-purple-mode.png`, `02-mobile-brand-system-black-mode.png`
+
+Question: “Does this look like the Easy Trav brand boards were converted directly into a real product?” If not, refine it.
+
+---
+
+## 40. Absolute final rule
+
+| Choice | Always choose |
+| --- | --- |
+| A trendy idea vs Easy Trav design DNA | **Easy Trav** |
+| Adding visual clutter vs refining the current composition | **Refinement** |
+| Generic stacked desktop vs Easy Trav app language on phone | **The app language** |
+| A generic website convention vs the supplied references | **The references** |
+
+**The brand system is locked. Do not redesign Easy Trav. Evolve within the system.**

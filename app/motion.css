@@ -1,0 +1,267 @@
+/* ==========================================================================
+   EASY TRAV — MOTION LAYER
+   Resting state is unchanged everywhere in this file. Nothing here alters
+   spacing, type size, colour, radius or geometry; it only defines the states
+   motion moves through and the surfaces hovers travel across.
+   ========================================================================== */
+
+:root {
+  /* Metallic surfaces and button fills. */
+  --ease-metal: cubic-bezier(0.4, 0, 0.15, 1);
+  --dur-fill: 430ms;
+  --dur-sheen: 620ms;
+  --dur-thumb: 520ms;
+}
+
+/* Stable compositing during layered hero transitions. Resting appearance is
+   unchanged; these declarations only prevent sub-pixel flicker in motion. */
+.hero__slide,
+.hero__photo {
+  backface-visibility: hidden;
+  transform-origin: center center;
+}
+
+/* --------------------------------------------------------------------------
+   Masked editorial lines
+   `.line` clips, `.line__inner` travels. The padding/margin pair reserves
+   room for Cormorant's descenders without changing the line box.
+   -------------------------------------------------------------------------- */
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.line__inner {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Hero entrance pre-state
+   Applied only when JS is present and motion is welcome. The bootstrap script
+   stamps `motion-ready` on a timer as well, so a failed bundle can never
+   leave the hero hidden.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion:not(.motion-ready) .site-header__inner,
+  .js-motion:not(.motion-ready) .hero__copy .eyebrow,
+  .js-motion:not(.motion-ready) .hero__lede,
+  .js-motion:not(.motion-ready) .hero__cta,
+  .js-motion:not(.motion-ready) .hero__concierge,
+  .js-motion:not(.motion-ready) .booking,
+  .js-motion:not(.motion-ready) .benefits__grid {
+    opacity: 0;
+  }
+
+  .js-motion:not(.motion-ready) .hero__title .line__inner {
+    transform: translateY(105%);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Buttons — material fill rather than a background switch
+   -------------------------------------------------------------------------- */
+
+.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Antique-gold surface entering from the left. Transform only — no width. */
+.btn--outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--gold-metallic);
+  background-size: 240% 100%;
+  background-position: 28% 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-fill) var(--ease-metal);
+}
+
+/* Specular band crossing just behind the fill. */
+.btn--outline::after,
+.btn--metallic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(
+    104deg,
+    transparent 38%,
+    rgba(255, 246, 226, 0.36) 50%,
+    transparent 62%
+  );
+  transform: translateX(-125%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn--outline:hover::before,
+.btn--outline:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  border-color: var(--border-gold-hover);
+  /* Resolves to #160C19 in Royal and #0B0B0C in Onyx. */
+  color: var(--bg-deep);
+  background-color: transparent;
+  transform: translateY(-2px);
+}
+
+.btn--outline:hover::after,
+.btn--outline:focus-visible::after,
+.btn--metallic:hover::after {
+  transform: translateX(125%);
+  opacity: 1;
+  transition:
+    transform var(--dur-sheen) var(--ease-metal) 110ms,
+    opacity 180ms linear 110ms;
+}
+
+.btn--metallic:hover {
+  background-position: 78% 0;
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.btn:hover .btn__arrow,
+.btn:focus-visible .btn__arrow {
+  transform: translateX(5px);
+}
+
+.btn--outline:active,
+.btn--metallic:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 140ms;
+}
+
+/* --------------------------------------------------------------------------
+   Cards — richer overlay, title lifts rather than slides
+   -------------------------------------------------------------------------- */
+
+.offer__media::after,
+.exp-tile__media::after,
+.guide__media::after,
+.cube__media::after {
+  transition: opacity var(--dur-slow) var(--ease-lux);
+}
+
+.offer:hover .offer__media::after,
+.exp-tile:hover .exp-tile__media::after,
+.guide:hover .guide__media::after,
+.cube:hover .cube__media::after {
+  opacity: 0.88;
+}
+
+.offer:hover .offer__media img,
+.exp-tile:hover .exp-tile__media img,
+.guide:hover .guide__media img,
+.cube:hover .cube__media img {
+  transform: scale(1.045);
+}
+
+.offer:hover .offer__name,
+.exp-tile:hover .exp-tile__name,
+.guide:hover .guide__title {
+  transform: translateY(-2px);
+}
+
+/* Text details brighten by colour only. A background here would paint a
+   filled bar across the whole label box. */
+.offer__eyebrow,
+.cube__region {
+  transition: color var(--dur-hover) var(--ease-lux);
+}
+
+.offer:hover .offer__eyebrow,
+.cube:hover .cube__region {
+  color: var(--gold-mid);
+}
+
+/* The separator dots are the only detail carrying a gold fill. */
+.offer__dot,
+.guide__dot {
+  transition: background-color var(--dur-hover) var(--ease-lux);
+}
+
+.offer:hover .offer__dot,
+.guide:hover .guide__dot {
+  background-color: var(--gold-mid);
+}
+
+/* --------------------------------------------------------------------------
+   Chrome
+   -------------------------------------------------------------------------- */
+
+.mode__thumb {
+  transition: transform var(--dur-thumb) var(--ease-metal);
+}
+
+.mode__option {
+  transition:
+    color var(--dur-thumb) var(--ease-metal),
+    opacity var(--dur-thumb) var(--ease-metal);
+}
+
+.nav__link::after {
+  transition: transform 300ms var(--ease-lux);
+}
+
+/* Gold editorial rules draw rather than appear. */
+.rule-draw {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* --------------------------------------------------------------------------
+   Phone — lighter everywhere
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  /* Hover surfaces are meaningless on touch; press states carry the feedback. */
+  .btn--outline::before,
+  .btn--outline::after,
+  .btn--metallic::after {
+    display: none;
+  }
+
+  .btn--outline:active {
+    background-color: rgba(184, 138, 56, 0.14);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion — nothing is hidden, nothing travels
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    overflow: visible;
+  }
+
+  .line__inner {
+    transform: none !important;
+  }
+
+  .btn--outline::before,
+  .btn--outline::after,
+  .btn--metallic::after {
+    display: none;
+  }
+
+  .btn--outline:hover,
+  .btn--outline:focus-visible {
+    background-color: rgba(184, 138, 56, 0.14);
+    color: var(--gold-light);
+    transform: none;
+  }
+}

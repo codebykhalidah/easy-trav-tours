@@ -1,0 +1,1376 @@
+@import "tailwindcss";
+@import "./sections.css";
+@import "./motion.css";
+
+/* ==========================================================================
+   EASY TRAV — DESIGN TOKENS
+   Royal and Onyx are two environmental treatments of ONE design system.
+   Only the tokens inside the [data-theme] blocks change between modes.
+   ========================================================================== */
+
+@theme inline {
+  --font-title: var(--font-gloock);
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+
+  --color-page: var(--bg-primary);
+  --color-page-deep: var(--bg-deep);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+
+  --color-ink: var(--text-primary);
+  --color-ink-secondary: var(--text-secondary);
+  --color-ink-muted: var(--text-muted);
+  --color-ink-meta: var(--text-meta);
+
+  --color-gold: var(--gold-primary);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-mid: var(--gold-mid);
+  --color-gold-light: var(--gold-light);
+  --color-champagne: var(--champagne);
+}
+
+/* --------------------------------------------------------------------------
+   Mode-invariant tokens. Identical in Royal and Onyx by design — the two
+   modes are the same website, so gold, ivory, type, geometry and motion
+   never vary between them.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Gold system */
+  --gold-primary: #b88a38;
+  --gold-dark: #8b5d28;
+  --gold-mid: #c99545;
+  --gold-light: #e4c178;
+  --champagne: #ead6b8;
+  --smoky-brown: #4a3831;
+
+  --gold-metallic: linear-gradient(
+    135deg,
+    #8b5d28 0%,
+    #b88a38 25%,
+    #c99545 45%,
+    #e4c178 55%,
+    #c99545 72%,
+    #8b5d28 100%
+  );
+
+  /* Ivory ladder. 0.42 is decorative / non-essential only; small essential
+     text never goes below 0.54. */
+  --text-primary: #f7f1e6;
+  --text-secondary: rgba(246, 241, 232, 0.72);
+  --text-muted: rgba(246, 241, 232, 0.54);
+  --text-meta: rgba(246, 241, 232, 0.42);
+
+  /* Gold border system — always transparent, always 1px */
+  --border-gold-subtle: rgba(184, 138, 56, 0.24);
+  --border-gold-strong: rgba(184, 138, 56, 0.42);
+  --border-gold-hover: rgba(201, 149, 69, 0.62);
+  --border-divider: rgba(234, 214, 184, 0.1);
+  --border-width: 1px;
+
+  /* Radius */
+  --radius-panel: 15px;
+  --radius-card: 13px;
+  --radius-control: 9px;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --container-max: 1560px;
+  --gutter: clamp(24px, 5vw, 84px);
+  --nav-h: clamp(64px, 5vw, 84px);
+  /* The photograph occupies roughly the upper 55-62% of the initial
+     composition, per the canonical reference — not a full viewport. */
+  --hero-media-h: clamp(430px, 38.5vw, 620px);
+  /* Width of the crisp hero frame within the media box; the remainder is the
+     darkened bed. 100% collapses the technique back to a plain cover crop. */
+  --hero-frame-w: 79%;
+  --booking-overlap: 18px;
+
+  /* Display typography. Small caps are composed manually (see SmallCaps)
+     because the Cormorant Garamond webfont ships without a real `smcp`
+     feature and browser synthesis renders too light against the reference. */
+  --display-sc-scale: 0.82;
+
+  /* Motion */
+  --ease-lux: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-hover: 260ms;
+  --dur-slow: 500ms;
+  --dur-theme: 600ms;
+
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   ROYAL — layered cinematic deep plum
+   -------------------------------------------------------------------------- */
+
+[data-theme="royal"] {
+  --bg-deep: #160c19;
+  --bg-primary: #211024;
+  --surface: #2e1531;
+  --surface-soft: #28132c;
+
+  --page-atmosphere:
+    radial-gradient(circle at 72% 18%, rgba(115, 57, 120, 0.16), transparent 38%),
+    linear-gradient(180deg, #211024 0%, #1b0d1e 55%, #160c19 100%);
+
+  /* Left-side readability gradient only: dense at the far left, releasing by
+     the time it reaches the pyramids so the scene stays cinematic. */
+  --hero-scrim: linear-gradient(
+    90deg,
+    rgba(22, 12, 25, 0.9) 0%,
+    rgba(26, 13, 29, 0.72) 18%,
+    rgba(33, 16, 36, 0.34) 38%,
+    rgba(33, 16, 36, 0.08) 56%,
+    transparent 72%
+  );
+
+  /* Top-weighted wash, biased toward wine rather than violet: more red than
+     blue, so it reads as deep plum falling over a warm scene instead of a
+     clean digital purple laid on top of one. */
+  --hero-tint: linear-gradient(
+    180deg,
+    rgba(58, 25, 45, 0.5) 0%,
+    rgba(46, 21, 40, 0.26) 28%,
+    rgba(33, 16, 36, 0.08) 46%,
+    transparent 64%
+  );
+
+  --hero-filter: brightness(1.02) saturate(0.98);
+  --hero-bed-filter: brightness(0.36) saturate(0.6) blur(13px);
+
+  /* Section scrims — same role in both modes, different environment colour */
+  --egypt-scrim-a: rgba(22, 12, 25, 0.93);
+  --egypt-scrim-b: rgba(33, 16, 36, 0.55);
+  --egypt-scrim-c: rgba(33, 16, 36, 0.18);
+  --egypt-scrim-top: rgba(22, 12, 25, 0.72);
+  --concierge-scrim: rgba(33, 16, 36, 0.62);
+  --journey-scrim-edge: rgba(22, 12, 25, 0.94);
+  --journey-scrim-mid: rgba(22, 12, 25, 0.62);
+
+  --shadow-luxury: 0 26px 60px -28px rgba(8, 3, 10, 0.86);
+  --shadow-raised: 0 14px 34px -18px rgba(8, 3, 10, 0.8);
+}
+
+/* --------------------------------------------------------------------------
+   ONYX — layered luxury black, warm brown sensed but never painted
+   -------------------------------------------------------------------------- */
+
+[data-theme="onyx"] {
+  --bg-deep: #0b0b0c;
+  --bg-primary: #0f0f10;
+  --surface: #171314;
+  --surface-soft: #211b19;
+
+  --page-atmosphere:
+    radial-gradient(circle at 78% 18%, rgba(139, 93, 40, 0.08), transparent 38%),
+    linear-gradient(180deg, #0f0f10 0%, #0d0d0e 60%, #0b0b0c 100%);
+
+  --hero-scrim: linear-gradient(
+    90deg,
+    rgba(11, 11, 12, 0.92) 0%,
+    rgba(11, 11, 12, 0.74) 18%,
+    rgba(15, 15, 16, 0.34) 38%,
+    rgba(15, 15, 16, 0.07) 56%,
+    transparent 72%
+  );
+
+  /* Soft black depth rather than crushed black: the sky is carried down with a
+     trace of bronze in the midtones, and the filter keeps photographic detail
+     instead of clipping it. */
+  --hero-tint: linear-gradient(
+    180deg,
+    rgba(14, 13, 14, 0.52) 0%,
+    rgba(16, 14, 14, 0.26) 28%,
+    rgba(33, 26, 22, 0.07) 46%,
+    transparent 64%
+  );
+
+  --hero-filter: brightness(1.02) contrast(1.03) saturate(1.08);
+  --hero-bed-filter: brightness(0.3) saturate(0.7) blur(13px);
+
+  --egypt-scrim-a: rgba(11, 11, 12, 0.94);
+  --egypt-scrim-b: rgba(15, 15, 16, 0.56);
+  --egypt-scrim-c: rgba(15, 15, 16, 0.18);
+  --egypt-scrim-top: rgba(11, 11, 12, 0.74);
+  --concierge-scrim: rgba(11, 11, 12, 0.64);
+  --journey-scrim-edge: rgba(11, 11, 12, 0.95);
+  --journey-scrim-mid: rgba(11, 11, 12, 0.64);
+
+  --shadow-luxury: 0 26px 60px -28px rgba(0, 0, 0, 0.9);
+  --shadow-raised: 0 14px 34px -18px rgba(0, 0, 0, 0.85);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--bg-primary);
+  background-image: var(--page-atmosphere);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* Accessible premium focus state. Never removed, only replaced. */
+:focus-visible {
+  outline: 2px solid var(--gold-mid);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 12px;
+  z-index: 100;
+  padding: 10px 18px;
+  border: var(--border-width) solid var(--border-gold-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   THEME TRANSITION
+   Applied only while a mode change is in flight so it never interferes with
+   hover timing.
+   ========================================================================== */
+
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color var(--dur-theme) var(--ease-lux),
+    background-image var(--dur-theme) var(--ease-lux),
+    border-color var(--dur-theme) var(--ease-lux),
+    box-shadow var(--dur-theme) var(--ease-lux),
+    color var(--dur-theme) var(--ease-lux);
+}
+
+/* ==========================================================================
+   PRIMITIVES
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Line-height is set from the reference's measured baseline-to-cap-height
+   ratio of 1.65, which for Cormorant Garamond's 0.727em cap height resolves
+   to ~1.19 — looser than a display serif's usual setting. */
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: 0.012em;
+  line-height: 1.19;
+}
+
+/* Formal high-contrast editorial face reserved for the page's major statements.
+   Card titles keep Cormorant so the hierarchy remains deliberate. */
+.hero__title,
+.section-head__title,
+.moment__title,
+.experiences__title,
+.egypt__title,
+.concierge__title,
+.journey__title,
+.offers__title,
+.footer__statement {
+  font-family: var(--font-title), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: 0.012em;
+}
+
+/* Gloock's dramatic contrast and sculpted terminals carry the major statements.
+   Natural title case preserves its fashion-editorial rhythm without synthetic
+   small caps. The underlying source text is unchanged. */
+:is(
+  .hero__title,
+  .section-head__title,
+  .moment__title,
+  .experiences__title,
+  .egypt__title,
+  .concierge__title,
+  .journey__title,
+  .offers__title,
+  .footer__statement
+) .sc {
+  font-size: 1em;
+  letter-spacing: inherit;
+  text-transform: none;
+}
+
+:is(
+  .hero__title,
+  .section-head__title,
+  .moment__title,
+  .experiences__title,
+  .egypt__title,
+  .concierge__title,
+  .journey__title,
+  .offers__title,
+  .footer__statement
+) .line {
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.sc {
+  font-size: calc(1em * var(--display-sc-scale));
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  color: var(--gold-primary);
+  font-size: clamp(10px, 0.85vw, 12.5px);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.label-micro {
+  color: var(--text-muted);
+  font-size: clamp(8.5px, 0.68vw, 10px);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   BUTTONS — one geometry, three variants
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+  font-size: clamp(10px, 0.78vw, 11.5px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color var(--dur-hover) var(--ease-lux),
+    border-color var(--dur-hover) var(--ease-lux),
+    background-color var(--dur-hover) var(--ease-lux),
+    transform var(--dur-hover) var(--ease-lux);
+}
+
+.btn--sm {
+  height: 38px;
+  padding-inline: 22px;
+}
+
+.btn--md {
+  height: 46px;
+  padding-inline: 30px;
+}
+
+.btn--outline {
+  border-color: var(--border-gold-strong);
+  color: var(--gold-primary);
+}
+
+/* Hover for both button variants lives in motion.css, which owns the fill and
+   sheen layers. Keeping it in one place avoids a cascade fight: `@import`
+   hoists motion.css above this file, so a hover rule here would win and
+   silently override the material treatment. */
+
+.btn__arrow {
+  transition: transform var(--dur-hover) var(--ease-lux);
+}
+
+/* Metallic — a material effect, reserved for SEARCH and select premium CTAs */
+.btn--metallic {
+  border-radius: var(--radius-control);
+  border-color: transparent;
+  background-image: var(--gold-metallic);
+  background-size: 220% 100%;
+  background-position: 22% 0;
+  color: #2b1c07;
+  font-weight: 600;
+  box-shadow: var(--shadow-raised);
+  transition:
+    background-position var(--dur-slow) var(--ease-lux),
+    transform var(--dur-hover) var(--ease-lux);
+}
+
+/* Metallic hover (highlight shift, sheen, lift, press) also lives in
+   motion.css — see the note above .btn__arrow. */
+
+/* ==========================================================================
+   HEADER / NAVIGATION
+   ========================================================================== */
+
+.site-header {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  flex: none;
+  /* Fixed box so the temporary raster swaps 1:1 for the production SVG
+     without moving anything around it. */
+  width: clamp(112px, 11vw, 158px);
+  aspect-ratio: 1.9934;
+}
+
+.brand img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.5vw, 40px);
+}
+
+.nav__link {
+  position: relative;
+  color: var(--text-secondary);
+  font-size: clamp(10px, 0.76vw, 11.5px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding-block: 6px;
+  transition: color var(--dur-hover) var(--ease-lux);
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--gold-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-hover) var(--ease-lux);
+}
+
+.nav__link:hover {
+  color: var(--gold-primary);
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Theme switcher — a refined segmented control, never an OS dark-mode toggle */
+.mode {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  padding: 3px;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-pill);
+  background-color: rgba(0, 0, 0, 0.24);
+}
+
+.mode__thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: var(--radius-pill);
+  background-image: var(--gold-metallic);
+  background-size: 200% 100%;
+  transition: transform var(--dur-hover) var(--ease-lux);
+}
+
+.mode__option {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: 5px 13px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease-lux);
+}
+
+.mode__option[aria-checked="true"] {
+  color: #2b1c07;
+}
+
+.mode__option:not([aria-checked="true"]):hover {
+  color: var(--gold-primary);
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+  color: var(--gold-primary);
+}
+
+/* Mobile drawer */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--nav-h) + 24px) var(--gutter) 40px;
+  background-color: var(--bg-deep);
+  background-image: var(--page-atmosphere);
+}
+
+.drawer__link {
+  padding-block: 16px;
+  border-bottom: var(--border-width) solid var(--border-divider);
+  color: var(--text-secondary);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.drawer__close {
+  position: absolute;
+  top: calc((var(--nav-h) - 42px) / 2);
+  right: var(--gutter);
+  width: 42px;
+  height: 42px;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+  color: var(--gold-primary);
+}
+
+/* ==========================================================================
+   HERO
+   The photograph occupies the upper portion of the composition and the
+   booking module straddles its lower edge — it is not a 100vh hero.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+}
+
+/* The lower edge of the whole media box fades to transparent, so the
+   photograph dissolves into the page environment instead of meeting a painted
+   seam colour that would have to be kept in sync with each theme. */
+.hero__media {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--hero-media-h);
+  z-index: -1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 82%, transparent 100%);
+}
+
+/*
+  The supplied 16:9 frame is compositionally tighter than the canonical
+  reference: filling this 2.6:1 container by `cover` shows only 68% of its
+  height, which renders the pyramid at 56% of the hero where the reference has
+  44%. Matching by crop alone would need a source ~27% wider.
+
+  So the crisp frame is laid at a smaller perceived scale, flush right, and the
+  remaining left band is carried by a darkened, defocused bed of the same
+  photograph — the region the readability scrim already takes to near-black.
+  Non-destructive: one source file, no distortion, no transform scaling.
+*/
+.hero__bed {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero__bed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% 40%;
+  /* Enlarged only enough to keep the blur off the container edges. */
+  scale: 1.08;
+  filter: var(--hero-bed-filter);
+}
+
+.hero__frame {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: var(--hero-frame-w);
+  overflow: hidden;
+  /* Feathered into the bed so no rectangle edge is readable. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 19%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 19%);
+}
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Window on source 6%-92%: clear sky above the balloon, both pyramid
+     apexes, the sun, and a deep band of the lit town. */
+  object-position: 50% 34%;
+  filter: var(--hero-filter);
+}
+
+.hero__tint,
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero__tint {
+  background-image: var(--hero-tint);
+}
+
+.hero__scrim {
+  background-image: var(--hero-scrim);
+}
+
+/* Slideshow is a stacking context UNDER the locked tint/scrim so slide
+   z-index can never punch through the cinematic envelope. */
+.hero__slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__slide:not(.is-current) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero__slide:not(.hero__slide--canonical) .hero__photo {
+  object-position: var(--slide-pos, 50% 40%);
+}
+
+.hero__progress {
+  position: absolute;
+  right: var(--gutter);
+  top: calc(var(--nav-h) + 10px);
+  z-index: 4;
+}
+
+.hero__progress-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero__progress-seg {
+  width: 18px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hero__progress-seg::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: var(--border-gold-subtle);
+  transition: background-color var(--dur-hover) var(--ease-lux);
+}
+
+.hero__progress-seg.is-active::after,
+.hero__progress-seg:hover::after {
+  background-color: var(--gold-primary);
+}
+
+.hero__progress-fill {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__progress {
+    display: none;
+  }
+}
+
+/* The copy block is anchored to the lower edge of the photograph rather than
+   to the top of the page: in the reference the CTA finishes just above the
+   seam the booking module straddles. */
+.hero__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: var(--hero-media-h);
+  padding-top: calc(var(--nav-h) + clamp(24px, 3vw, 44px));
+  padding-bottom: clamp(34px, 4vw, 58px);
+}
+
+.hero__copy {
+  max-width: min(52ch, 46%);
+}
+
+.hero__title {
+  margin-top: clamp(4px, 0.7vw, 10px);
+  font-size: clamp(38px, 4.6vw, 72px);
+  color: var(--text-primary);
+}
+
+.hero__lede {
+  margin-top: clamp(18px, 1.8vw, 28px);
+  color: var(--text-secondary);
+  font-size: clamp(14px, 1.12vw, 17px);
+  font-weight: 300;
+  line-height: 1.62;
+}
+
+.hero__cta {
+  margin-top: clamp(24px, 2.6vw, 38px);
+}
+
+/* VIP Concierge card — supporting media, anchored to the seam and to the
+   same right alignment line as the navigation. */
+.hero__concierge {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(10px, 1.3vw, 20px);
+}
+
+.concierge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: clamp(126px, 9.6vw, 150px);
+  padding: clamp(14px, 1.2vw, 20px) clamp(10px, 0.9vw, 14px);
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-card);
+  background-color: color-mix(in srgb, var(--surface) 88%, transparent);
+  box-shadow: var(--shadow-luxury);
+  text-align: center;
+  transition:
+    transform var(--dur-hover) var(--ease-lux),
+    border-color var(--dur-hover) var(--ease-lux);
+}
+
+.concierge-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-gold-strong);
+}
+
+.concierge-card__title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(21px, 1.7vw, 27px);
+  line-height: 1;
+  color: var(--gold-light);
+}
+
+.concierge-card__kicker {
+  margin-top: 3px;
+  color: var(--gold-primary);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.concierge-card__copy {
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.concierge-card__rule {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-divider);
+}
+
+.concierge-card__icon {
+  color: var(--gold-primary);
+}
+
+/* ==========================================================================
+   BOOKING / SEARCH MODULE
+   Straddles the lower edge of the hero photograph.
+   ========================================================================== */
+
+.booking {
+  position: relative;
+}
+
+/* The stepped "folder tab" silhouette from the reference: the tab shelf sits
+   proud of the module body, which resumes at a lower edge to its right. */
+.booking__shelf {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin-bottom: -1px;
+  padding: 0 clamp(18px, 2vw, 34px);
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-bottom: 0;
+  border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+.booking__tabs {
+  display: flex;
+  align-items: stretch;
+}
+
+.booking__tab {
+  position: relative;
+  padding: clamp(12px, 1.1vw, 17px) clamp(12px, 1.3vw, 22px);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: clamp(9.5px, 0.72vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease-lux);
+}
+
+.booking__tab + .booking__tab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 28%;
+  bottom: 28%;
+  width: 1px;
+  background-color: var(--border-divider);
+}
+
+.booking__tab::after {
+  content: "";
+  position: absolute;
+  left: clamp(12px, 1.3vw, 22px);
+  right: clamp(12px, 1.3vw, 22px);
+  bottom: 0;
+  height: 1.5px;
+  background-color: var(--gold-primary);
+  transform: scaleX(0);
+  transition: transform var(--dur-hover) var(--ease-lux);
+}
+
+.booking__tab:hover {
+  color: var(--text-secondary);
+}
+
+.booking__tab[aria-selected="true"] {
+  color: var(--gold-primary);
+}
+
+.booking__tab[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.booking__body {
+  display: grid;
+  grid-template-columns: 1.15fr 1.15fr 1fr 1fr 0.95fr auto;
+  align-items: stretch;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: 0 var(--radius-panel) var(--radius-panel) var(--radius-panel);
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: var(--shadow-luxury);
+}
+
+.field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: clamp(14px, 1.3vw, 20px) clamp(14px, 1.4vw, 24px);
+  min-width: 0;
+}
+
+.field + .field::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 1px;
+  background-color: var(--border-divider);
+}
+
+.field__label {
+  display: block;
+  color: var(--text-muted);
+  font-size: clamp(8.5px, 0.66vw, 9.5px);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.field__control {
+  width: 100%;
+  margin-top: 6px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: clamp(13px, 1.02vw, 15.5px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.field__control::placeholder {
+  color: var(--text-muted);
+}
+
+.field__control:focus {
+  outline: none;
+}
+
+.field:focus-within {
+  background-color: color-mix(in srgb, var(--surface-soft) 60%, transparent);
+}
+
+.field__icon {
+  flex: none;
+  color: var(--gold-primary);
+  opacity: 0.85;
+}
+
+.field--select .field__control {
+  appearance: none;
+  cursor: pointer;
+}
+
+.booking__action {
+  display: flex;
+  align-items: center;
+  padding: clamp(10px, 0.9vw, 14px) clamp(12px, 1vw, 16px);
+}
+
+.booking__search {
+  width: 100%;
+  height: 100%;
+  min-height: 44px;
+}
+
+/* `To` leads the DOM so the phone presentation can make it the primary search
+   without duplicating any field. Above the two-column breakpoint the canonical
+   order is restored, where visual order and DOM order agree again. */
+@media (min-width: 1181px) {
+  .field--from {
+    order: -1;
+  }
+}
+
+.booking__tabIcon,
+.booking__more {
+  display: none;
+}
+
+/* ==========================================================================
+   SERVICE BENEFITS
+   Four centred cells with hairline dividers — never four cards.
+   ========================================================================== */
+
+.benefits {
+  padding-block: clamp(26px, 3vw, 46px);
+}
+
+.benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.benefit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1vw, 16px);
+  padding-inline: clamp(8px, 1vw, 20px);
+}
+
+.benefit + .benefit::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+  background-color: var(--border-divider);
+}
+
+.benefit__icon {
+  flex: none;
+  color: var(--gold-primary);
+}
+
+.benefit__title {
+  color: var(--text-primary);
+  font-size: clamp(10px, 0.76vw, 11.5px);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.benefit__copy {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: clamp(10px, 0.78vw, 11.5px);
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   Recomposed at each breakpoint rather than merely scaled down.
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  :root {
+    --hero-frame-w: 88%;
+  }
+
+  .booking__body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Two columns: horizontal rules between rows, one vertical rule between
+     the columns. */
+  .field + .field::before {
+    display: none;
+  }
+
+  .field:nth-child(n + 3) {
+    border-top: var(--border-width) solid var(--border-divider);
+  }
+
+  .field:nth-child(2n)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 18%;
+    bottom: 18%;
+    width: 1px;
+    background-color: var(--border-divider);
+  }
+
+  .booking__action {
+    grid-column: 1 / -1;
+    border-top: var(--border-width) solid var(--border-divider);
+  }
+}
+
+@media (max-width: 1023px) {
+  /* Container ratio here is close to the source's own 16:9, so the whole
+     frame already fits: the widening bed is not needed. */
+  :root {
+    --hero-frame-w: 100%;
+  }
+
+  .hero__frame {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hero__photo {
+    object-position: 52% 22%;
+  }
+
+  .hero__slide:not(.hero__slide--canonical) .hero__photo {
+    object-position: var(--slide-pos-t, var(--slide-pos, 50% 40%));
+  }
+
+  .nav,
+  .site-header .btn--outline {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .hero__copy {
+    max-width: none;
+  }
+
+  .hero__stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: clamp(20px, 3vw, 32px);
+  }
+
+  .hero__concierge {
+    position: static;
+  }
+
+  .concierge-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .concierge-card__rule {
+    width: 1px;
+    height: 34px;
+  }
+
+  .benefits__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(20px, 3vw, 30px);
+  }
+
+  .benefit {
+    justify-content: flex-start;
+  }
+
+  .benefit:nth-child(2n + 1)::before {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gutter: 20px;
+    --hero-media-h: clamp(520px, 96vw, 640px);
+  }
+
+  /* The tall mobile frame crops horizontally instead: the window lands on
+     source 49%-91%, holding the great pyramid's apex and the balloon. */
+  .hero__photo {
+    object-position: 85% 50%;
+  }
+
+  .hero__slide:not(.hero__slide--canonical) .hero__photo {
+    object-position: var(--slide-pos-m, var(--slide-pos, 50% 40%));
+  }
+
+  .hero__progress {
+    top: auto;
+    bottom: clamp(16px, 4vw, 28px);
+  }
+
+  /* The segmented switch moves into the menu drawer rather than crowding the
+     app-shell header. */
+  .site-header .mode {
+    display: none;
+  }
+
+  /* --------------------------------------------------------------------
+     Phone: the same module becomes an app-style discovery control — the
+     tabs are category chips, `To` is the primary search, and the rest of
+     the fields sit behind a disclosure.
+     -------------------------------------------------------------------- */
+  .booking {
+    margin-top: clamp(20px, 4vw, 30px);
+  }
+
+  .booking__shelf {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .booking__tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .booking__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 4px;
+    border: var(--border-width) solid var(--border-gold-subtle);
+    border-radius: var(--radius-control);
+    background-color: color-mix(in srgb, var(--surface) 82%, transparent);
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .booking__tabIcon {
+    display: block;
+  }
+
+  .booking__tab::after,
+  .booking__tab + .booking__tab::before {
+    display: none;
+  }
+
+  .booking__tab[aria-selected="true"] {
+    border-color: var(--border-gold-hover);
+    background-color: rgba(184, 138, 56, 0.12);
+  }
+
+  .booking__body {
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: var(--radius-panel);
+  }
+
+  .field--to .field__control {
+    font-size: 16px;
+  }
+
+  /* Collapsed until the disclosure is opened. */
+  .field--advanced {
+    display: none;
+  }
+
+  .booking--expanded .field--advanced {
+    display: flex;
+  }
+
+  .booking__more {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 13px clamp(14px, 4vw, 24px);
+    border: 0;
+    border-top: var(--border-width) solid var(--border-divider);
+    background: transparent;
+    cursor: pointer;
+    color: var(--gold-primary);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .booking__moreIcon {
+    transition: transform var(--dur-hover) var(--ease-lux);
+  }
+
+  .booking--expanded .booking__moreIcon {
+    transform: rotate(180deg);
+  }
+
+  .booking__action {
+    border-top: var(--border-width) solid var(--border-divider);
+  }
+
+  /* Single column: one horizontal rule between every pair of fields. */
+  .field:nth-child(2n)::after {
+    display: none;
+  }
+
+  .field + .field {
+    border-top: var(--border-width) solid var(--border-divider);
+  }
+
+  .benefits__grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 22px;
+  }
+
+  .benefit::before {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,121 @@
+"use client";
+
+import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { Icon } from "@/components/ui/Icon";
+import { ThemeSwitcher } from "@/components/navigation/ThemeSwitcher";
+import { LuxuryLinkButton } from "@/components/ui/LuxuryButton";
+import { BOOK_NOW, PRIMARY_NAV } from "@/lib/constants/navigation";
+
+export function MobileNav() {
+  const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  const close = useCallback(() => {
+    setOpen(false);
+    toggleRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const { body } = document;
+    const previousOverflow = body.style.overflow;
+    body.style.overflow = "hidden";
+    closeRef.current?.focus();
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        close();
+        return;
+      }
+
+      if (event.key !== "Tab" || !drawerRef.current) return;
+
+      const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled])",
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      body.style.overflow = previousOverflow;
+    };
+  }, [open, close]);
+
+  return (
+    <>
+      <button
+        ref={toggleRef}
+        type="button"
+        className="nav-toggle"
+        aria-expanded={open}
+        aria-label="Open menu"
+        onClick={() => setOpen(true)}
+      >
+        <Icon name="menu" size={20} />
+      </button>
+
+      {open ? (
+        <div
+          ref={drawerRef}
+          className="drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+        >
+          <button
+            ref={closeRef}
+            type="button"
+            className="drawer__close"
+            aria-label="Close menu"
+            onClick={close}
+          >
+            <Icon name="close" size={20} />
+          </button>
+
+          {PRIMARY_NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="drawer__link"
+              onClick={close}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <div className="drawer__actions">
+            <LuxuryLinkButton href={BOOK_NOW.href} size="md">
+              {BOOK_NOW.label}
+            </LuxuryLinkButton>
+
+            {/* At phone widths the segmented switch lives here rather than
+                crowding the header. */}
+            <div className="drawer__mode">
+              <span className="label-micro">Visual mode</span>
+              <ThemeSwitcher />
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
