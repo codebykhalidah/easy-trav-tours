@@ -4,7 +4,7 @@
 
 /* ==========================================================================
    EASY TRAV — DESIGN TOKENS
-   Royal and Onyx are two environmental treatments of ONE design system.
+   Royal, Onyx and Pearl are environmental treatments of ONE design system.
    Only the tokens inside the [data-theme] blocks change between modes.
    ========================================================================== */
 
@@ -223,6 +223,138 @@
 
   --shadow-luxury: 0 26px 60px -28px rgba(0, 0, 0, 0.9);
   --shadow-raised: 0 14px 34px -18px rgba(0, 0, 0, 0.85);
+}
+
+/* --------------------------------------------------------------------------
+   PEARL — warm ivory with Onyx typography
+   -------------------------------------------------------------------------- */
+
+[data-theme="pearl"] {
+  --bg-deep: #e7d7c8;
+  --bg-primary: #f1e6da;
+  --surface: #fbf4ec;
+  --surface-soft: #eaddcf;
+
+  --page-atmosphere:
+    radial-gradient(circle at 78% 18%, rgba(139, 93, 40, 0.09), transparent 38%),
+    linear-gradient(180deg, #f1e6da 0%, #eee1d4 60%, #e7d7c8 100%);
+
+  --text-primary: #0f0f10;
+  --text-secondary: rgba(15, 15, 16, 0.72);
+  --text-muted: rgba(15, 15, 16, 0.62);
+  --text-meta: rgba(15, 15, 16, 0.62);
+
+  /* Deep bronze is the accessible accent on warm ivory (5.3:1). Brighter
+     champagne values are restored only inside photographic environments. */
+  --gold-primary: #805423;
+  --gold-dark: #4a3831;
+  --gold-mid: #7a4f21;
+  --gold-light: #8b5d28;
+  --champagne: #4a3831;
+
+  --border-gold-subtle: rgba(128, 84, 35, 0.28);
+  --border-gold-strong: rgba(128, 84, 35, 0.48);
+  --border-gold-hover: rgba(122, 79, 33, 0.72);
+  --border-divider: rgba(15, 15, 16, 0.12);
+
+  --hero-scrim: linear-gradient(
+    90deg,
+    rgba(11, 11, 12, 0.88) 0%,
+    rgba(11, 11, 12, 0.7) 18%,
+    rgba(15, 15, 16, 0.32) 38%,
+    rgba(15, 15, 16, 0.06) 56%,
+    transparent 72%
+  );
+  --hero-tint: linear-gradient(
+      180deg,
+      rgba(14, 13, 14, 0.36) 0%,
+      rgba(16, 14, 14, 0.16) 28%,
+      transparent 58%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 66%,
+      rgba(241, 230, 218, 0.12) 78%,
+      rgba(241, 230, 218, 0.48) 92%,
+      rgba(241, 230, 218, 0.76) 100%
+    );
+  --hero-filter: brightness(1.02) contrast(1.03) saturate(1.08);
+  --hero-bed-filter: brightness(0.52) saturate(0.72) blur(16px);
+
+  --egypt-scrim-a: rgba(11, 11, 12, 0.94);
+  --egypt-scrim-b: rgba(15, 15, 16, 0.56);
+  --egypt-scrim-c: rgba(15, 15, 16, 0.18);
+  --egypt-scrim-top: rgba(241, 230, 218, 0.78);
+  --concierge-scrim: rgba(11, 11, 12, 0.64);
+  --journey-scrim-edge: rgba(11, 11, 12, 0.95);
+  --journey-scrim-mid: rgba(11, 11, 12, 0.64);
+
+  --nav-glass: linear-gradient(
+    180deg,
+    rgba(251, 244, 236, 0.9) 0%,
+    rgba(241, 230, 218, 0.78) 100%
+  );
+  --nav-stroke: rgba(15, 15, 16, 0.14);
+
+  --shadow-luxury: 0 24px 72px -42px rgba(74, 56, 49, 0.2);
+  --shadow-raised: 0 14px 44px -30px rgba(74, 56, 49, 0.16);
+
+  color-scheme: light;
+}
+
+/* Copy placed over photography keeps its light media palette in Pearl mode. */
+[data-theme="pearl"] :where(
+  .hero,
+  .offer,
+  .cube,
+  .moment,
+  .exp-tile,
+  .egypt,
+  .guide,
+  .journey
+) {
+  --text-primary: #f7f1e6;
+  --text-secondary: rgba(246, 241, 232, 0.72);
+  --text-muted: rgba(246, 241, 232, 0.54);
+  --text-meta: rgba(246, 241, 232, 0.42);
+  --gold-primary: #c99545;
+  --gold-dark: #8b5d28;
+  --gold-mid: #e4c178;
+  --gold-light: #f0d79c;
+  --champagne: #ead6b8;
+  --border-gold-subtle: rgba(228, 193, 120, 0.3);
+  --border-gold-strong: rgba(228, 193, 120, 0.5);
+  --border-gold-hover: rgba(240, 215, 156, 0.72);
+}
+
+[data-theme="pearl"] .concierge-card {
+  --surface: #171314;
+  --shadow-luxury: 0 24px 64px -38px rgba(47, 34, 29, 0.34);
+}
+
+/* Pearl dissolves photographs into a light atmosphere instead of the dark
+   edge treatment used by Royal and Onyx. The extra stops remove grey bands. */
+[data-theme="pearl"] .hero__media {
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 68%,
+    rgba(0, 0, 0, 0.96) 74%,
+    rgba(0, 0, 0, 0.78) 82%,
+    rgba(0, 0, 0, 0.42) 91%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 68%,
+    rgba(0, 0, 0, 0.96) 74%,
+    rgba(0, 0, 0, 0.78) 82%,
+    rgba(0, 0, 0, 0.42) 91%,
+    transparent 100%
+  );
+}
+
+[data-theme="pearl"] .drawer {
+  box-shadow: -20px 0 64px -40px rgba(74, 56, 49, 0.24);
 }
 
 /* ==========================================================================
@@ -497,6 +629,7 @@ button {
 }
 
 .brand {
+  position: relative;
   display: inline-flex;
   align-items: center;
   flex: none;
@@ -558,6 +691,40 @@ button {
   transform: scaleX(1);
 }
 
+/* Pearl starts over a dark photograph, then changes to Onyx typography once
+   the warm glass panel appears. The original gold logo mark is preserved. */
+@media (min-width: 768px) {
+  [data-theme="pearl"]:not(.is-scrolled) .site-header {
+    --gold-primary: #c99545;
+    --gold-mid: #e4c178;
+    --gold-light: #f0d79c;
+    --champagne: #ead6b8;
+    --border-gold-subtle: rgba(228, 193, 120, 0.3);
+    --border-gold-strong: rgba(228, 193, 120, 0.5);
+  }
+
+  [data-theme="pearl"]:not(.is-scrolled) .site-header .nav__link {
+    color: rgba(247, 241, 230, 0.88);
+  }
+
+  [data-theme="pearl"]:not(.is-scrolled) .site-header .mode__option:not([aria-checked="true"]) {
+    color: rgba(247, 241, 230, 0.72);
+  }
+
+  [data-theme="pearl"].is-scrolled .site-header .brand__wide {
+    filter: brightness(0) saturate(100%);
+  }
+
+  [data-theme="pearl"].is-scrolled .site-header .brand::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/brand/easy-trav-logo-horizontal.png") left center / 100% 100% no-repeat;
+    clip-path: inset(0 77% 0 0);
+    pointer-events: none;
+  }
+}
+
 /* Theme switcher — a refined segmented control, never an OS dark-mode toggle */
 .mode {
   position: relative;
@@ -575,7 +742,7 @@ button {
   top: 3px;
   bottom: 3px;
   left: 3px;
-  width: calc(50% - 3px);
+  width: calc(33.333% - 2px);
   border-radius: var(--radius-pill);
   background-image: var(--gold-metallic);
   background-size: 200% 100%;
@@ -1322,7 +1489,7 @@ button {
   /* Paint the document through the iPhone safe area and use a scrolling
      atmosphere on iOS, where fixed page backgrounds can expose blank bands. */
   html {
-    background-color: #0d0d0e;
+    background-color: var(--bg-primary);
   }
 
   body {

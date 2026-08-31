@@ -1,8 +1,8 @@
 /**
- * Easy Trav ships two premium dark modes, not light/dark. Royal and Onyx are
- * environmental treatments of one design system.
+ * Easy Trav ships three premium environmental treatments of one design
+ * system: Royal, Onyx and Pearl.
  */
-export const THEMES = ["royal", "onyx"] as const;
+export const THEMES = ["onyx", "royal", "pearl"] as const;
 
 export type Theme = (typeof THEMES)[number];
 

@@ -2,23 +2,25 @@
 
 import { Icon } from "@/components/ui/Icon";
 import { useTheme } from "@/hooks/useTheme";
-import type { Theme } from "@/types/theme";
+import { THEMES, type Theme } from "@/types/theme";
 
 const LABELS: Readonly<Record<Theme, string>> = {
   onyx: "Onyx",
+  pearl: "Pearl",
   royal: "Royal",
 };
 
 /**
  * Compact mode switch for the phone header, where the segmented control is too
- * wide. One tap moves between the two modes.
+ * wide. One tap moves through the available modes.
  *
  * A contrast mark rather than a sun/moon: both Easy Trav modes are dark, so
  * OS light/dark iconography would misdescribe what the control does.
  */
 export function ThemeToggleButton() {
   const { theme, setTheme } = useTheme();
-  const next: Theme = theme === "onyx" ? "royal" : "onyx";
+  const currentIndex = THEMES.indexOf(theme);
+  const next = THEMES[(currentIndex + 1) % THEMES.length];
 
   return (
     <button

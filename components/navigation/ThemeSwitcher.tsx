@@ -7,11 +7,12 @@ import { THEMES, type Theme } from "@/types/theme";
 
 const LABELS: Readonly<Record<Theme, string>> = {
   onyx: "Onyx",
+  pearl: "Pearl",
   royal: "Royal",
 };
 
 /** Display order puts Onyx first, matching the reference presentation. */
-const ORDER: readonly Theme[] = ["onyx", "royal"];
+const ORDER: readonly Theme[] = ["onyx", "royal", "pearl"];
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();

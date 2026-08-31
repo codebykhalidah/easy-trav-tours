@@ -66,7 +66,7 @@ export const viewport: Viewport = {
  */
 const themeBootstrap = `(function(){var d=document.documentElement;try{var t=localStorage.getItem(${JSON.stringify(
   THEME_STORAGE_KEY,
-)});if(t==="royal"||t==="onyx"){d.dataset.theme=t}}catch(e){}d.classList.add("js-motion");setTimeout(function(){d.classList.add("motion-ready")},2600)})();`;
+)});if(t==="royal"||t==="onyx"||t==="pearl"){d.dataset.theme=t}}catch(e){}d.classList.add("js-motion");setTimeout(function(){d.classList.add("motion-ready")},2600)})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

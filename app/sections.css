@@ -885,6 +885,53 @@
   margin-top: clamp(26px, 2.8vw, 40px);
 }
 
+[data-theme="pearl"] .journey__media {
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 8%,
+    rgba(0, 0, 0, 0.18) 16%,
+    rgba(0, 0, 0, 0.42) 26%,
+    rgba(0, 0, 0, 0.72) 36%,
+    #000 48%,
+    #000 72%,
+    rgba(0, 0, 0, 0.72) 82%,
+    rgba(0, 0, 0, 0.32) 91%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 8%,
+    rgba(0, 0, 0, 0.18) 16%,
+    rgba(0, 0, 0, 0.42) 26%,
+    rgba(0, 0, 0, 0.72) 36%,
+    #000 48%,
+    #000 72%,
+    rgba(0, 0, 0, 0.72) 82%,
+    rgba(0, 0, 0, 0.32) 91%,
+    transparent 100%
+  );
+}
+
+[data-theme="pearl"] .journey__scrim {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(241, 230, 218, 0.78) 0%,
+      transparent 34%,
+      transparent 66%,
+      rgba(241, 230, 218, 0.78) 100%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(11, 11, 12, 0.62) 0%,
+      rgba(11, 11, 12, 0.42) 42%,
+      rgba(11, 11, 12, 0.08) 76%,
+      transparent 100%
+    );
+}
+
 /* ==========================================================================
    FOOTER
    ========================================================================== */
@@ -961,6 +1008,19 @@
   color: var(--text-meta);
   font-size: 10.5px;
   font-weight: 300;
+}
+
+[data-theme="pearl"] .footer__brand img {
+  filter: brightness(0) saturate(100%);
+}
+
+[data-theme="pearl"] .footer__brand::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/brand/easy-trav-logo-temp.png") center / 100% 100% no-repeat;
+  clip-path: inset(0 24% 48% 24%);
+  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -1655,6 +1715,11 @@
   line-height: 15px;
 }
 
+[data-theme="pearl"] .sheet__count {
+  background-color: #805423;
+  color: #f7f1e6;
+}
+
 .sheet__close {
   display: inline-flex;
   align-items: center;
@@ -2012,6 +2077,106 @@
   opacity: 1;
 }
 
+[data-theme="pearl"] .site-header::before {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 18px 54px -42px rgba(74, 56, 49, 0.22);
+}
+
+[data-theme="pearl"] .moment__media {
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 8%,
+    rgba(0, 0, 0, 0.18) 16%,
+    rgba(0, 0, 0, 0.42) 26%,
+    rgba(0, 0, 0, 0.72) 38%,
+    #000 52%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 8%,
+    rgba(0, 0, 0, 0.18) 16%,
+    rgba(0, 0, 0, 0.42) 26%,
+    rgba(0, 0, 0, 0.72) 38%,
+    #000 52%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+[data-theme="pearl"] .egypt__media {
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 8%,
+    rgba(0, 0, 0, 0.18) 18%,
+    rgba(0, 0, 0, 0.42) 30%,
+    rgba(0, 0, 0, 0.72) 42%,
+    #000 56%,
+    #000 84%,
+    rgba(0, 0, 0, 0.72) 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 8%,
+    rgba(0, 0, 0, 0.18) 18%,
+    rgba(0, 0, 0, 0.42) 30%,
+    rgba(0, 0, 0, 0.72) 42%,
+    #000 56%,
+    #000 84%,
+    rgba(0, 0, 0, 0.72) 90%,
+    transparent 100%
+  );
+}
+
+/* Controls over photographs use a dark neutral field in Pearl mode. This
+   keeps gold as the accent while meeting contrast against every image. */
+[data-theme="pearl"] :where(.offer, .cube, .exp-tile) .badge {
+  border-color: rgba(228, 193, 120, 0.62);
+  background-color: rgba(24, 20, 18, 0.8);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: 0 12px 34px -24px rgba(20, 15, 12, 0.46);
+}
+
+[data-theme="pearl"] :where(.offer, .cube, .exp-tile) .badge__label {
+  color: #f7f1e6;
+}
+
+[data-theme="pearl"] :where(.offer, .cube, .exp-tile) .card-action {
+  border-color: rgba(228, 193, 120, 0.56);
+  background-color: rgba(24, 20, 18, 0.8);
+  color: #e4c178;
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: 0 12px 34px -24px rgba(20, 15, 12, 0.42);
+}
+
+[data-theme="pearl"] :where(.offer, .cube, .exp-tile) .card-action:hover {
+  border-color: rgba(228, 193, 120, 0.8);
+  background-color: rgba(45, 35, 29, 0.9);
+  color: #f0d79c;
+}
+
+[data-theme="pearl"] :where(.offer, .cube, .exp-tile) .card-action--cart.is-on {
+  border-color: transparent;
+  background-color: transparent;
+  background-image: var(--gold-metallic);
+  color: #2b1c07;
+}
+
+[data-theme="pearl"] :where(.offer, .cube, .exp-tile) .card-action--fav.is-on {
+  border-color: rgba(234, 214, 184, 0.76);
+  background-color: rgba(234, 214, 184, 0.2);
+  color: #f7f1e6;
+}
+
 @media (max-width: 767px) {
   .site-header::before {
     opacity: 1;
@@ -2040,6 +2205,16 @@
 
   .is-scrolled .site-header::after {
     opacity: 0.58;
+  }
+
+  [data-theme="pearl"] .site-header::after {
+    background: linear-gradient(
+      180deg,
+      rgba(241, 230, 218, 0.98) 0%,
+      rgba(241, 230, 218, 0.76) 58%,
+      rgba(241, 230, 218, 0.26) 82%,
+      transparent 100%
+    );
   }
 }
 

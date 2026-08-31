@@ -33,10 +33,10 @@ export default function HomePage() {
       <main id="main">
         <Hero />
         <BookingSection />
-        <ServiceBenefits />
+        <ExclusiveOffers />
         <DestinationMosaic />
         <EgyptMoment />
-        <ExclusiveOffers />
+        <ServiceBenefits />
         <CuratedExperiences />
         <DestinationRail />
         <EgyptLuxuryTours />
