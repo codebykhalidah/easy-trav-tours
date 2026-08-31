@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/Container";
+import { CardShell } from "@/components/commerce/CardShell";
 import { CardActions } from "@/components/ui/CardActions";
 import { CardPrice } from "@/components/ui/CardPrice";
 import { DiscountBadge } from "@/components/ui/DiscountBadge";
@@ -29,7 +30,7 @@ export function ExclusiveOffers() {
         <ul className="offers__rail">
           {EXCLUSIVE_OFFERS.map((offer) => (
             <li key={offer.id}>
-              <article className="offer">
+              <CardShell id={offer.id} className="offer">
                 <span className="offer__media">
                   <Image
                     src={offer.image}
@@ -54,7 +55,16 @@ export function ExclusiveOffers() {
 
                 <div className="offer__foot">
                   <CardPrice price={offer.fromPrice} oldPrice={offer.oldPrice} />
-                  <CardActions name={offer.title} />
+                  <CardActions
+                    item={{
+                      id: offer.id,
+                      name: offer.title,
+                      price: offer.fromPrice,
+                      image: offer.image,
+                      href: offer.href,
+                      meta: `${offer.place} · ${offer.duration}`,
+                    }}
+                  />
                 </div>
 
                 <Link
@@ -62,7 +72,7 @@ export function ExclusiveOffers() {
                   className="card-overlay"
                   aria-label={`${offer.title}, ${offer.place}, ${offer.duration}`}
                 />
-              </article>
+              </CardShell>
             </li>
           ))}
         </ul>

@@ -1,39 +1,37 @@
 "use client";
 
-import { useState } from "react";
-
+import { useCommerce } from "@/components/commerce/CommerceProvider";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils/cn";
+import type { SavedItem } from "@/types/commerce";
 
 interface CardActionsProps {
-  /** Item name, used to build distinct accessible labels per card. */
-  name: string;
+  item: SavedItem;
   /** Icon-only presentation for the smaller tiles. */
   compact?: boolean;
 }
 
 /**
- * Save and add-to-cart controls.
+ * Save and add-to-cart controls, backed by the shared commerce store.
  *
- * Prototype state only: this holds UI state in the component and does not
- * persist anything or talk to a cart service. When the real basket lands it
- * takes an item id and the server owns quantities and every money value.
- *
- * These are real buttons, deliberately rendered as siblings of the card's
- * link rather than inside it — interactive content cannot nest in an anchor.
+ * These are real buttons, deliberately rendered as siblings of the card's link
+ * rather than inside it — interactive content cannot nest in an anchor.
  */
-export function CardActions({ name, compact = false }: CardActionsProps) {
-  const [saved, setSaved] = useState(false);
-  const [added, setAdded] = useState(false);
+export function CardActions({ item, compact = false }: CardActionsProps) {
+  const { toggle, has } = useCommerce();
+  const saved = has("favourites", item.id);
+  const added = has("cart", item.id);
 
   return (
     <span className={cn("card-actions", compact && "card-actions--compact")}>
       <button
         type="button"
-        className={cn("card-action", saved && "is-on")}
+        className={cn("card-action card-action--fav", saved && "is-on")}
         aria-pressed={saved}
-        aria-label={saved ? `Remove ${name} from favourites` : `Save ${name} to favourites`}
-        onClick={() => setSaved((on) => !on)}
+        aria-label={
+          saved ? `Remove ${item.name} from favourites` : `Save ${item.name} to favourites`
+        }
+        onClick={() => toggle("favourites", item)}
       >
         <Icon name="heart" size={15} />
       </button>
@@ -42,13 +40,11 @@ export function CardActions({ name, compact = false }: CardActionsProps) {
         type="button"
         className={cn("card-action card-action--cart", added && "is-on")}
         aria-pressed={added}
-        aria-label={added ? `${name} added to cart` : `Add ${name} to cart`}
-        onClick={() => setAdded((on) => !on)}
+        aria-label={added ? `Remove ${item.name} from cart` : `Add ${item.name} to cart`}
+        onClick={() => toggle("cart", item)}
       >
         <Icon name={added ? "check" : "cart"} size={15} />
-        {compact ? null : (
-          <span className="card-action__label">{added ? "Added" : "Add to cart"}</span>
-        )}
+        <span className="card-action__label">{added ? "Added" : "Add to cart"}</span>
       </button>
     </span>
   );

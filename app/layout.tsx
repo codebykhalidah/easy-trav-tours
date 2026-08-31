@@ -4,6 +4,8 @@ import { Cormorant_Garamond, Gloock, Inter } from "next/font/google";
 import { DEFAULT_THEME, THEME_STORAGE_KEY } from "@/types/theme";
 import "./globals.css";
 
+import { CommerceProvider } from "@/components/commerce/CommerceProvider";
+
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
@@ -63,7 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
       </head>
-      <body className="min-h-full">{children}</body>
+      <body data-app className="min-h-full"><CommerceProvider>{children}</CommerceProvider></body>
     </html>
   );
 }

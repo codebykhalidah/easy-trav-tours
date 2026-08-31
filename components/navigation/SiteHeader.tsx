@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { CommerceButtons } from "@/components/commerce/CommerceButtons";
 import { Container } from "@/components/layout/Container";
 import { MobileNav } from "@/components/navigation/MobileNav";
 import { PrimaryNav } from "@/components/navigation/PrimaryNav";
@@ -39,8 +40,10 @@ export function SiteHeader() {
             {BOOK_NOW.label}
           </LuxuryLinkButton>
 
+          <CommerceButtons />
+
           {/* App-shell utility, phone only. */}
-          <Link href="#offers" className="utility-btn" aria-label="Offers and updates">
+          <Link href="#offers" className="utility-btn utility-btn--bell" aria-label="Offers and updates">
             <Icon name="bell" size={19} />
           </Link>
 

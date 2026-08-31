@@ -192,7 +192,10 @@ function heroIntro(gsap: Gsap) {
 
   const tl = gsap.timeline({ defaults: { ease: REVEAL_EASE } });
 
-  if (nav) tl.to(nav, { autoAlpha: 1, y: 0, duration: 0.7 }, 0);
+  // clearProps matters beyond tidiness: a leftover transform on the header
+  // would make it the containing block for the `position: fixed` menu drawer
+  // nested inside it, collapsing the drawer to the header's own box.
+  if (nav) tl.to(nav, { autoAlpha: 1, y: 0, duration: 0.7, clearProps: "transform" }, 0);
   if (eyebrow) tl.fromTo(eyebrow, { y: 10 }, { autoAlpha: 1, y: 0, duration: 0.55 }, 0.18);
 
   if (titleLines.length > 0) {

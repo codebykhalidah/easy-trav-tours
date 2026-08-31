@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { CardShell } from "@/components/commerce/CardShell";
 import { CardActions } from "@/components/ui/CardActions";
 import { CardPrice } from "@/components/ui/CardPrice";
 import { DiscountBadge } from "@/components/ui/DiscountBadge";
@@ -34,7 +35,8 @@ export function DestinationCube({
   priority,
 }: DestinationCubeProps) {
   return (
-    <article
+    <CardShell
+      id={card.id}
       className={cn("cube", variant === "feature" && "cube--feature", className)}
     >
       <span className="cube__media">
@@ -56,7 +58,17 @@ export function DestinationCube({
 
         <span className="cube__foot">
           <CardPrice price={card.price} oldPrice={card.oldPrice} />
-          <CardActions name={card.name} compact={variant !== "feature"} />
+          <CardActions
+            item={{
+              id: card.id,
+              name: card.name,
+              price: card.price,
+              image: card.image,
+              href: card.href,
+              meta: card.region,
+            }}
+            compact={variant !== "feature"}
+          />
         </span>
       </div>
 
@@ -65,6 +77,6 @@ export function DestinationCube({
         className="card-overlay"
         aria-label={`${card.name}, ${card.region}`}
       />
-    </article>
+    </CardShell>
   );
 }

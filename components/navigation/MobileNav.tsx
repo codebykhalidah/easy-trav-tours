@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { Icon } from "@/components/ui/Icon";
 import { ThemeSwitcher } from "@/components/navigation/ThemeSwitcher";
@@ -73,7 +74,11 @@ export function MobileNav() {
         <Icon name="menu" size={20} />
       </button>
 
-      {open ? (
+      {/* Rendered into <body>: a transformed ancestor would otherwise become
+          the containing block for this fixed dialog and collapse it. Only ever
+          rendered after a click, so there is no server/client mismatch. */}
+      {open
+        ? createPortal(
         <div
           ref={drawerRef}
           className="drawer"
@@ -114,8 +119,10 @@ export function MobileNav() {
               <ThemeSwitcher />
             </div>
           </div>
-        </div>
-      ) : null}
+        </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 }

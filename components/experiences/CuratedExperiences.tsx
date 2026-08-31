@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/Container";
+import { CardShell } from "@/components/commerce/CardShell";
 import { CardActions } from "@/components/ui/CardActions";
 import { CardPrice } from "@/components/ui/CardPrice";
 import { DiscountBadge } from "@/components/ui/DiscountBadge";
@@ -47,7 +48,7 @@ export function CuratedExperiences() {
         <ul className="experiences__field">
           {CURATED_EXPERIENCES.map((item, index) => (
             <li key={item.id} className={index === 0 ? "is-tall" : undefined}>
-              <article className="exp-tile">
+              <CardShell id={item.id} className="exp-tile">
                 <span className="exp-tile__media">
                   <Image
                     src={item.image}
@@ -70,7 +71,17 @@ export function CuratedExperiences() {
 
                   <div className="exp-tile__foot">
                     <CardPrice price={item.price} oldPrice={item.oldPrice} />
-                    <CardActions name={item.title} compact={index !== 0} />
+                    <CardActions
+                      item={{
+                        id: item.id,
+                        name: item.title,
+                        price: item.price,
+                        image: item.image,
+                        href: item.href,
+                        meta: item.meta,
+                      }}
+                      compact
+                    />
                   </div>
                 </div>
 
@@ -79,7 +90,7 @@ export function CuratedExperiences() {
                   className="card-overlay"
                   aria-label={`${item.title}, ${item.meta}`}
                 />
-              </article>
+              </CardShell>
             </li>
           ))}
         </ul>
