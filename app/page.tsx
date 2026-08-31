@@ -1,6 +1,7 @@
 import { ServiceBenefits } from "@/components/benefits/ServiceBenefits";
 import { BookingSection } from "@/components/booking/BookingSection";
 import { SavedPanel } from "@/components/commerce/SavedPanel";
+import { Toaster } from "@/components/commerce/Toaster";
 import { ConciergeSection } from "@/components/concierge/ConciergeSection";
 import { PrivateJourney } from "@/components/cta/PrivateJourney";
 import { DestinationMosaic } from "@/components/destinations/DestinationMosaic";
@@ -46,6 +47,7 @@ export default function HomePage() {
       <SiteFooter />
       <BottomNav />
       <SavedPanel />
+      <Toaster />
       <PageMotion />
     </>
   );

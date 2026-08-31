@@ -32,6 +32,7 @@ export const ICON_NAMES = [
   "heart",
   "cart",
   "check",
+  "mode",
 ] as const;
 
 export type IconName = (typeof ICON_NAMES)[number];

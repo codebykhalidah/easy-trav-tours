@@ -86,9 +86,11 @@
   --container-max: 1800px;
   --gutter: clamp(20px, 2.8vw, 60px);
   --nav-h: clamp(64px, 5vw, 84px);
-  /* The photograph occupies roughly the upper 55-62% of the initial
-     composition, per the canonical reference — not a full viewport. */
-  --hero-media-h: clamp(430px, 38.5vw, 620px);
+  /* Sized against viewport height as well as width so the landing view fills
+     the screen instead of ending in a dead band, while short windows still
+     get a proportionate hero. `svh` keeps mobile browser chrome from
+     resizing it mid-scroll. */
+  --hero-media-h: clamp(430px, min(42vw, 70svh), 820px);
   /* Width of the crisp hero frame within the media box; the remainder is the
      darkened bed. 100% collapses the technique back to a plain cover crop. */
   --hero-frame-w: 79%;
@@ -156,6 +158,13 @@
   --journey-scrim-edge: rgba(22, 12, 25, 0.94);
   --journey-scrim-mid: rgba(22, 12, 25, 0.62);
 
+  --nav-glass: linear-gradient(
+    180deg,
+    rgba(33, 16, 36, 0.86) 0%,
+    rgba(27, 13, 30, 0.72) 100%
+  );
+  --nav-stroke: rgba(234, 214, 184, 0.16);
+
   --shadow-luxury: 0 26px 60px -28px rgba(8, 3, 10, 0.86);
   --shadow-raised: 0 14px 34px -18px rgba(8, 3, 10, 0.8);
 }
@@ -204,6 +213,13 @@
   --concierge-scrim: rgba(11, 11, 12, 0.64);
   --journey-scrim-edge: rgba(11, 11, 12, 0.95);
   --journey-scrim-mid: rgba(11, 11, 12, 0.64);
+
+  --nav-glass: linear-gradient(
+    180deg,
+    rgba(17, 17, 18, 0.87) 0%,
+    rgba(13, 13, 14, 0.73) 100%
+  );
+  --nav-stroke: rgba(234, 214, 184, 0.14);
 
   --shadow-luxury: 0 26px 60px -28px rgba(0, 0, 0, 0.9);
   --shadow-raised: 0 14px 34px -18px rgba(0, 0, 0, 0.85);
@@ -465,7 +481,7 @@ button {
    ========================================================================== */
 
 .site-header {
-  position: absolute;
+  position: fixed;
   inset: 0 0 auto 0;
   z-index: 20;
   height: var(--nav-h);
@@ -482,17 +498,27 @@ button {
 
 .brand {
   display: inline-flex;
+  align-items: center;
   flex: none;
-  /* Fixed box so the temporary raster swaps 1:1 for the production SVG
-     without moving anything around it. */
-  width: clamp(112px, 11vw, 158px);
-  aspect-ratio: 1.9934;
 }
 
 .brand img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
+}
+
+/* Horizontal lockup: height tuned to sit on the nav's optical line. */
+.brand__wide {
+  width: clamp(178px, 15vw, 232px);
+  aspect-ratio: 6.2297;
+}
+
+/* Mark alone, phones only. */
+.brand__mark {
+  display: none;
+  width: clamp(48px, 14vw, 60px);
+  aspect-ratio: 1.8852;
 }
 
 .nav {

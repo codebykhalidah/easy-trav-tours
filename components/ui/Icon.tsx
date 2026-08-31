@@ -180,6 +180,12 @@ const PATHS: Readonly<Record<IconName, ReactElement>> = {
     </>
   ),
   check: <path d="m5.4 12.6 4.2 4.2 9-9.6" />,
+  mode: (
+    <>
+      <circle cx="12" cy="12" r="8.4" />
+      <path d="M12 3.6a8.4 8.4 0 0 0 0 16.8Z" fill="currentColor" stroke="none" />
+    </>
+  ),
 };
 
 export function Icon({ name, size = 20, className }: IconProps) {

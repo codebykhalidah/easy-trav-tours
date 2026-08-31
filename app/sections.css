@@ -1785,14 +1785,11 @@
    ========================================================================== */
 
 @media (max-width: 767px) {
-  /* The lead destination runs edge to edge, like an app feature panel. */
+  /* The lead destination is tall and prominent, but holds the same left and
+     right alignment as the cubes beneath it rather than bleeding to the
+     phone's edges. */
   .mosaic__feature {
-    width: 100vw;
-    margin-left: 50%;
-    transform: translateX(-50%);
     aspect-ratio: 4 / 5;
-    border-inline: 0;
-    border-radius: 0;
   }
 
   /* Small tiles carry icon-only controls so the label can never wrap onto a
@@ -1928,4 +1925,461 @@
   background-image: none;
   background-color: var(--fav-rose);
   color: #2b1010;
+}
+
+/* ==========================================================================
+   HEADER GLASS
+   A closed bar, not a fade: dense translucent glass, a light sheen falling
+   from the top edge, and a hairline stroke closing the bottom. Transparent
+   over the hero, then fading in as one panel once the page moves.
+   ========================================================================== */
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background-image:
+    /* Interior sheen — the light falls inside the panel, top to bottom. */
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 235, 0.075) 0%,
+      rgba(255, 248, 235, 0.022) 38%,
+      rgba(255, 248, 235, 0) 74%
+    ),
+    var(--nav-glass);
+  -webkit-backdrop-filter: blur(26px) saturate(165%);
+  backdrop-filter: blur(26px) saturate(165%);
+  border-bottom: var(--border-width) solid var(--nav-stroke);
+  box-shadow:
+    /* Bright hairline catching the top edge, as on a polished panel. */
+    inset 0 1px 0 rgba(255, 248, 235, 0.09),
+    0 14px 34px -22px rgba(0, 0, 0, 0.78);
+  pointer-events: none;
+  transition: opacity 420ms var(--ease-lux);
+}
+
+.is-scrolled .site-header::before {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .site-header::before {
+    -webkit-backdrop-filter: blur(28px) saturate(165%);
+    backdrop-filter: blur(28px) saturate(165%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header::before {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   ADD CONFIRMATION TOAST
+   Same glass and gold as the rest of the interface; rose when the item went
+   to favourites, gold when it went to the cart.
+   ========================================================================== */
+
+.toaster {
+  position: fixed;
+  right: var(--gutter);
+  bottom: clamp(20px, 3vw, 34px);
+  z-index: 70;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(360px, calc(100vw - 2 * var(--gutter)));
+  padding: 12px 14px;
+  border: var(--border-width) solid var(--border-gold-strong);
+  border-radius: var(--radius-card);
+  background-image: var(--nav-glass);
+  background-color: color-mix(in srgb, var(--bg-deep) 72%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: var(--shadow-luxury);
+  pointer-events: auto;
+  animation: toast-in 460ms var(--ease-lux) both;
+}
+
+.toast--fav {
+  border-color: color-mix(in srgb, var(--fav-rose) 62%, transparent);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.toast__media {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 42px;
+  overflow: hidden;
+  border-radius: var(--radius-control);
+}
+
+.toast__media img {
+  object-fit: cover;
+}
+
+.toast__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast__line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  color: var(--gold-primary);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.toast--fav .toast__line {
+  color: var(--fav-rose);
+}
+
+.toast__name {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toast__action {
+  flex: none;
+  padding: 7px 11px;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+  color: var(--gold-primary);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    border-color var(--dur-hover) var(--ease-lux),
+    color var(--dur-hover) var(--ease-lux);
+}
+
+.toast__action:hover {
+  border-color: var(--border-gold-hover);
+  color: var(--gold-mid);
+}
+
+.toast__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.toast__close:hover {
+  color: var(--gold-primary);
+}
+
+/* Phones: full width, clear of the bottom app navigation. */
+@media (max-width: 767px) {
+  .toaster {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(var(--bottom-nav-h, 64px) + env(safe-area-inset-bottom) + 14px);
+  }
+
+  .toast {
+    width: 100%;
+    gap: 10px;
+    padding: 11px 12px;
+  }
+
+  /* Keeps the status line on one row in the narrow phone toast. */
+  .toast__line {
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+  }
+
+  .toast__action {
+    padding: 7px 9px;
+    font-size: 8.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   LANGUAGE SWITCHER
+   Prototype selector: same glass and hairline as the header panel it sits in.
+   ========================================================================== */
+
+.lang {
+  position: relative;
+  flex: none;
+}
+
+.lang__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border: var(--border-width) solid var(--border-gold-subtle);
+  border-radius: var(--radius-pill);
+  background-color: rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  color: var(--gold-primary);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    border-color var(--dur-hover) var(--ease-lux),
+    color var(--dur-hover) var(--ease-lux);
+}
+
+.lang__trigger:hover {
+  border-color: var(--border-gold-hover);
+  color: var(--gold-mid);
+}
+
+.lang__caret {
+  transition: transform var(--dur-hover) var(--ease-lux);
+}
+
+.lang__caret.is-open {
+  transform: rotate(180deg);
+}
+
+.lang__menu {
+  position: absolute;
+  top: calc(100% + 9px);
+  right: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  min-width: 188px;
+  padding: 6px;
+  border: var(--border-width) solid var(--nav-stroke);
+  border-radius: var(--radius-card);
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 235, 0.07) 0%,
+      rgba(255, 248, 235, 0) 62%
+    ),
+    var(--nav-glass);
+  -webkit-backdrop-filter: blur(26px) saturate(165%);
+  backdrop-filter: blur(26px) saturate(165%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 235, 0.09),
+    var(--shadow-luxury);
+  animation: lang-in 200ms var(--ease-lux) both;
+}
+
+@keyframes lang-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lang__option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--dur-hover) var(--ease-lux);
+}
+
+.lang__option:hover {
+  background-color: color-mix(in srgb, var(--gold-primary) 15%, transparent);
+}
+
+.lang__name {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.lang__native {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 300;
+}
+
+.lang__option.is-current .lang__name {
+  color: var(--gold-primary);
+}
+
+/* Notices carry no thumbnail, so the body takes the full width. */
+.toast--message .toast__body {
+  padding-left: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang__menu {
+    animation: none;
+  }
+}
+
+/* Phones: the drawer gives it room, so it opens upward-safe and full width. */
+@media (max-width: 767px) {
+  .drawer__mode .lang {
+    width: 100%;
+  }
+
+  .drawer__mode .lang__trigger {
+    width: 100%;
+    justify-content: space-between;
+    height: 40px;
+  }
+
+  .lang__menu {
+    left: 0;
+    right: 0;
+    min-width: 0;
+  }
+}
+
+/* ==========================================================================
+   PHONE HEADER FIT
+   The bar has to hold the mark plus five controls inside 390px without
+   anything clipping, so the logo steps down, the controls tighten, and the
+   language pill collapses to its globe.
+   ========================================================================== */
+
+/* Desktop keeps the segmented control; the single-tap button is phone-only. */
+.utility-btn--mode {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .site-header__actions {
+    gap: 6px;
+    min-width: 0;
+  }
+
+  /* Phones show the mark alone — the wordmark will not fit beside five
+     controls without shrinking past legibility. */
+  .site-header .brand__wide {
+    display: none;
+  }
+
+  .site-header .brand__mark {
+    display: inline-block;
+  }
+
+  .site-header .utility-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .utility-btn--mode {
+    display: inline-flex;
+  }
+
+  /* Offers already has a slot in the bottom navigation. */
+  .utility-btn--bell {
+    display: none;
+  }
+
+  .site-header .nav-toggle {
+    width: 36px;
+    height: 36px;
+    flex: none;
+  }
+
+  /* Globe only — the menu it opens still names every language in full. */
+  .site-header .lang__trigger {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .site-header .lang__short,
+  .site-header .lang__caret {
+    display: none;
+  }
+
+  .lang__menu {
+    left: auto;
+    right: 0;
+    min-width: 178px;
+  }
+
+  .utility-btn__count {
+    top: -2px;
+    right: -2px;
+    min-width: 15px;
+    height: 15px;
+    font-size: 8.5px;
+    line-height: 15px;
+  }
+}
+
+/* Very narrow handsets: recover the last few pixels. */
+@media (max-width: 359px) {
+  .site-header .brand__mark {
+    width: 46px;
+  }
+
+  .site-header__actions {
+    gap: 4px;
+  }
+
+  .site-header .utility-btn,
+  .site-header .nav-toggle,
+  .site-header .lang__trigger {
+    width: 33px;
+    height: 33px;
+  }
 }

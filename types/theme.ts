@@ -6,7 +6,7 @@ export const THEMES = ["royal", "onyx"] as const;
 
 export type Theme = (typeof THEMES)[number];
 
-export const DEFAULT_THEME: Theme = "royal";
+export const DEFAULT_THEME: Theme = "onyx";
 
 export const THEME_STORAGE_KEY = "easytrav-theme";
 

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Icon } from "@/components/ui/Icon";
-import { ThemeSwitcher } from "@/components/navigation/ThemeSwitcher";
+import { LanguageSwitcher } from "@/components/navigation/LanguageSwitcher";
 import { LuxuryLinkButton } from "@/components/ui/LuxuryButton";
 import { BOOK_NOW, PRIMARY_NAV } from "@/lib/constants/navigation";
 
@@ -115,8 +115,8 @@ export function MobileNav() {
             {/* At phone widths the segmented switch lives here rather than
                 crowding the header. */}
             <div className="drawer__mode">
-              <span className="label-micro">Visual mode</span>
-              <ThemeSwitcher />
+              <span className="label-micro">Language</span>
+              <LanguageSwitcher />
             </div>
           </div>
         </div>,
