@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Gloock, Inter } from "next/font/google";
 
 import { DEFAULT_THEME, THEME_STORAGE_KEY } from "@/types/theme";
@@ -29,6 +29,11 @@ export const metadata: Metadata = {
   title: "Easy Trav — Travel Made Easy",
   description:
     "Premium travel experiences designed around you. Curated journeys, luxury stays and 24/7 VIP concierge, from inspiration to arrival.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Easy Trav",
+  },
   openGraph: {
     title: "Easy Trav — Travel Made Easy",
     description:
@@ -36,6 +41,15 @@ export const metadata: Metadata = {
     siteName: "Easy Trav",
     type: "website",
   },
+};
+
+/** Keeps mobile browser chrome visually continuous with the app shell. */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0d0d0e",
+  colorScheme: "dark",
 };
 
 /**

@@ -1316,6 +1316,32 @@ button {
   :root {
     --gutter: 20px;
     --hero-media-h: clamp(520px, 96vw, 640px);
+    --phone-safe-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Paint the document through the iPhone safe area and use a scrolling
+     atmosphere on iOS, where fixed page backgrounds can expose blank bands. */
+  html {
+    background-color: #0d0d0e;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-attachment: scroll;
+  }
+
+  .site-header {
+    height: calc(var(--nav-h) + var(--phone-safe-top));
+    padding-top: var(--phone-safe-top);
+    isolation: isolate;
+  }
+
+  .site-header__inner {
+    height: var(--nav-h);
+  }
+
+  .booking-section {
+    padding-top: calc(var(--nav-h) + var(--phone-safe-top) + 10px);
   }
 
   /* The tall mobile frame crops horizontally instead: the window lands on
