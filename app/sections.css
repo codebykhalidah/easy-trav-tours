@@ -2014,34 +2014,41 @@
 
 @media (max-width: 767px) {
   .site-header::before {
-    inset: 0 0 -22px;
     opacity: 1;
-    background-image:
-      linear-gradient(
-        180deg,
-        rgba(255, 248, 235, 0.07) 0%,
-        rgba(255, 248, 235, 0.018) 44%,
-        transparent 72%
-      ),
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--bg-deep) 96%, transparent) 0%,
-        color-mix(in srgb, var(--bg-deep) 90%, transparent) calc(100% - 22px),
-        transparent 100%
-      );
     -webkit-backdrop-filter: blur(28px) saturate(165%);
     backdrop-filter: blur(28px) saturate(165%);
-    border-bottom: 0;
-    box-shadow: inset 0 1px 0 rgba(255, 248, 235, 0.07);
   }
 
-  .is-scrolled .site-header::before {
+  /* Keep the original liquid glass untouched. This separate dark atmosphere
+     bridges the phone's top edge into the header without becoming a panel. */
+  .site-header::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 -30px;
+    z-index: -2;
+    background: linear-gradient(
+      180deg,
+      rgba(8, 8, 9, 0.96) 0%,
+      rgba(10, 10, 11, 0.72) 58%,
+      rgba(10, 10, 11, 0.24) 82%,
+      transparent 100%
+    );
+    pointer-events: none;
     opacity: 1;
+    transition: opacity 420ms var(--ease-lux);
+  }
+
+  .is-scrolled .site-header::after {
+    opacity: 0.58;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .site-header::before {
+    transition: none;
+  }
+
+  .site-header::after {
     transition: none;
   }
 }
