@@ -1006,20 +1006,6 @@
   display: none;
 }
 
-.drawer__actions {
-  margin-top: clamp(24px, 5vw, 40px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(20px, 4vw, 30px);
-}
-
-.drawer__mode {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 /* ==========================================================================
    TABLET — editorial reflow, not the phone shell
    ========================================================================== */
@@ -1785,15 +1771,20 @@
    ========================================================================== */
 
 @media (max-width: 767px) {
-  /* The lead destination is tall and prominent, but holds the same left and
-     right alignment as the cubes beneath it rather than bleeding to the
-     phone's edges. */
+  /* Lock the lead card to the phone viewport instead of leaving its preferred
+     ratio vulnerable to Safari's intrinsic-content sizing. The upper cap is
+     what keeps wide phones and compact foldables identical to the reference. */
   .mosaic__feature {
-    aspect-ratio: 4 / 5;
+    width: 100%;
+    height: clamp(390px, calc(125svw - 50px), 520px);
+    min-height: 0;
+    aspect-ratio: auto;
   }
 
-  /* Small tiles carry icon-only controls so the label can never wrap onto a
-     second line and push the title out of the card. */
+  /* Written action labels are reserved for the spacious lead card. Every
+     smaller phone card uses icon-only controls, preventing translated or
+     enlarged text from colliding with prices. */
+  .offers__rail .card-action__label,
   .experiences__field .card-action__label,
   .mosaic__field .card-action__label,
   .rail .card-action__label,
@@ -1812,8 +1803,42 @@
     line-height: 1.25;
   }
 
+  .cube__content,
+  .exp-tile__body {
+    min-width: 0;
+  }
+
+  .cube__name,
+  .exp-tile__name,
+  .offer__name {
+    overflow-wrap: anywhere;
+  }
+
+  .mosaic__feature .cube__content {
+    padding: 14px;
+  }
+
+  .mosaic__feature .cube__name {
+    font-size: clamp(23px, 6.4vw, 29px);
+    line-height: 1.08;
+  }
+
+  .mosaic__feature .card-actions {
+    flex: none;
+  }
+
+  .mosaic__feature .card-action--cart {
+    gap: 6px;
+    padding-inline: 10px;
+    font-size: 8.75px;
+    letter-spacing: 0.1em;
+  }
+
+  .offer__foot,
   .exp-tile__foot,
   .cube__foot {
+    min-width: 0;
+    gap: 7px;
     flex-wrap: nowrap;
   }
 
@@ -1821,6 +1846,29 @@
     min-width: 0;
     flex-wrap: wrap;
     row-gap: 0;
+  }
+
+  .price__old,
+  .price__now {
+    letter-spacing: 0.03em;
+  }
+
+  .card-actions {
+    flex: none;
+  }
+
+  .card-action {
+    min-width: 30px;
+  }
+}
+
+/* Older Safari releases do not understand `svw`; keep the same bounded
+   geometry using the classic viewport unit as a fallback. */
+@supports not (width: 1svw) {
+  @media (max-width: 767px) {
+    .mosaic__feature {
+      height: clamp(390px, calc(125vw - 50px), 520px);
+    }
   }
 }
 
@@ -2266,25 +2314,6 @@
 @media (prefers-reduced-motion: reduce) {
   .lang__menu {
     animation: none;
-  }
-}
-
-/* Phones: the drawer gives it room, so it opens upward-safe and full width. */
-@media (max-width: 767px) {
-  .drawer__mode .lang {
-    width: 100%;
-  }
-
-  .drawer__mode .lang__trigger {
-    width: 100%;
-    justify-content: space-between;
-    height: 40px;
-  }
-
-  .lang__menu {
-    left: 0;
-    right: 0;
-    min-width: 0;
   }
 }
 

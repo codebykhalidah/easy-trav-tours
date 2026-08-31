@@ -5,9 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Icon } from "@/components/ui/Icon";
-import { LanguageSwitcher } from "@/components/navigation/LanguageSwitcher";
-import { LuxuryLinkButton } from "@/components/ui/LuxuryButton";
-import { BOOK_NOW, PRIMARY_NAV } from "@/lib/constants/navigation";
+import { PRIMARY_NAV } from "@/lib/constants/navigation";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -79,49 +77,48 @@ export function MobileNav() {
           rendered after a click, so there is no server/client mismatch. */}
       {open
         ? createPortal(
-        <div
-          ref={drawerRef}
-          className="drawer"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu"
-        >
-          <button
-            ref={closeRef}
-            type="button"
-            className="drawer__close"
-            aria-label="Close menu"
-            onClick={close}
-          >
-            <Icon name="close" size={20} />
-          </button>
-
-          {PRIMARY_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="drawer__link"
+          <div className="drawer-shell">
+            <button
+              type="button"
+              className="drawer__scrim"
+              aria-label="Close menu"
+              tabIndex={-1}
               onClick={close}
+            />
+
+            <div
+              ref={drawerRef}
+              className="drawer"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
             >
-              {item.label}
-            </Link>
-          ))}
+              <button
+                ref={closeRef}
+                type="button"
+                className="drawer__close"
+                aria-label="Close menu"
+                onClick={close}
+              >
+                <Icon name="close" size={18} />
+              </button>
 
-          <div className="drawer__actions">
-            <LuxuryLinkButton href={BOOK_NOW.href} size="md">
-              {BOOK_NOW.label}
-            </LuxuryLinkButton>
-
-            {/* At phone widths the segmented switch lives here rather than
-                crowding the header. */}
-            <div className="drawer__mode">
-              <span className="label-micro">Language</span>
-              <LanguageSwitcher />
+              <nav className="drawer__nav" aria-label="Mobile">
+                {PRIMARY_NAV.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="drawer__link"
+                    onClick={close}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
-          </div>
-        </div>,
-            document.body,
-          )
+          </div>,
+          document.body,
+        )
         : null}
     </>
   );
